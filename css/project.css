@@ -1,0 +1,144 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f4f9;
+    display: flex;
+    min-height: 100vh;
+    overflow: hidden; 
+}
+
+.side_bar {
+    width: 250px;
+    background-color: #ffffff; 
+    color: black; 
+    height: 100vh;
+    position: fixed;
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+    border: 1px solid #dcdcdc; 
+    overflow-y: auto; 
+}
+
+.side_bar .logo {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+}
+
+.side_bar .logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.side_bar .logo h3 {
+    color: black; 
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.side_bar .icons {
+    display: flex;
+    flex-direction: column;
+}
+
+.side_bar .icons a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    font-size: 1em;
+    color: black; 
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-radius 0.3s;
+    border: 1px solid transparent; 
+    border-radius: 5px; 
+}
+
+.side_bar .icons a:hover {
+    background-color: #e3f2fd; 
+    color: #0277bd; 
+}
+
+.side_bar .icons a i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.side_bar .icons a.active {
+    background-color: #e1f5fe; 
+    color: #0277bd; 
+    font-weight: 600; 
+    border-left: 4px solid #0277bd; 
+    padding-left: 16px; 
+    box-shadow: 0 3px 6px rgba(2, 119, 189, 0.2); 
+    transition: all 0.3s ease-in-out; 
+}
+
+.side_bar .icons a.active:hover {
+    background-color: #bbdefb; 
+    box-shadow: 0 4px 8px rgba(2, 119, 189, 0.4); 
+    transform: translateX(4px); 
+}
+
+.main-content {
+    margin-left: 250px; 
+    padding: 20px;
+    flex: 1;
+    background-color: #f4f4f9;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    overflow-y: auto; 
+}
+
+.subscription-card {
+    background-color: white;
+    border: solid 1px;
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 300px;
+    text-align: center;
+    margin: 20px; 
+    flex-shrink: 0; 
+}
+
+.subscription-card img {
+    width: 100px; 
+    margin-bottom: 15px;
+}
+
+.subscription-card h2 {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+.subscription-card p {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.subscribe-btn {
+    background-color: #9C6CFE;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.subscribe-btn:hover {
+    background-color: #732d91;
+}
+
