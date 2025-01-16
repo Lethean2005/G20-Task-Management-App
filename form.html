@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/form.css">
+    <script src="/js/form.js" defer></script>
+    <link rel="shortcut icon" href="/images/form-images/form-image.png" type="image/x-icon">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Image Section -->
+        <div class="image-section">
+            <img src="/images/form-images/form-image.png" alt="Sample Image">
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-section">
+            <div class="container">
+                <h2>Create Account</h2>
+                
+                <form id="loginForm">
+                    <input type="email" id="email" placeholder="Email Address" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <button type="submit">Log In</button>
+                </form>
+
+                <div class="social-signup">
+                    <p>or sign up with</p>
+                    <div class="social-icons">
+                        <button class="facebook" onclick="showForm()">
+                            <i class="bi bi-facebook"></i>
+                        </button>
+                        <button class="google" onclick="showForm()">
+                            <i class="bi bi-google"></i>
+                        </button>
+                        <button class="linkedin" onclick="showForm()">
+                            <i class="bi bi-linkedin"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <p>Have an account? <a href="#">Log in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="form-overlay" id="formOverlay"></div>
+
+    <!-- Form Container -->
+    <div class="form-container" id="formContainer">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <input type="text" id="firstName" placeholder="First Name" required>
+            <input type="text" id="lastName" placeholder="Last Name" required>
+            <input type="email" id="signupEmail" placeholder="Email" required>
+            <input type="password" id="signupPassword" placeholder="Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <span class="close-btn" onclick="hideForm()">Close</span>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyABCDEFGHIJKLMNOPQRSTUVWXYZ12345678",
+            authDomain: "g20-task-management-app.firebaseapp.com",
+            databaseURL: "https://g20-task-management-app-6c290-default-rtdb.asia-southeast1.firebasedatabase.app/",
+            projectId: "g20-task-management-app",
+            storageBucket: "g20-task-management-app.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:abcdef1234567890abcdef"
+        };
+        
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const database = firebase.database();
+
+        // Show/hide form functions
+        function showForm() {
+            document.getElementById('formOverlay').style.display = 'block';
+            document.getElementById('formContainer').style.display = 'block';
+        }
+
+        function hideForm() {
+            document.getElementById('formOverlay').style.display = 'none';
+            document.getElementById('formContainer').style.display = 'none';
+        }
+
+        // Handle Sign Up Form Submission
+        document.getElementById('signupForm').addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent form submission
+
+            // Get form values
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            // Store data in Firebase Realtime Database
+            const userData = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password, // Note: In a real app, never store plain passwords. Use Firebase Authentication.
+                createdAt: new Date().toISOString()
+            };
+
+            // Push data to the Realtime Database
+            database.ref('users').push(userData)
+                .then(() => {
+                    alert('User registered successfully!');
+                    hideForm(); // Hide the form after submission
+                })
+                .catch((error) => {
+                    console.error('Error adding user: ', error);
+                    alert('An error occurred. Please try again.');
+                });
+        });
+
+        // Handle Login Form Submission
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent form submission
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Add your login logic here (e.g., Firebase Authentication)
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // User logged in successfully
+                    const user = userCredential.user;
+                    alert('Login successful!');
+                })
+                .catch((error) => {
+                    console.error('Login error: ', error);
+                    alert('Login failed. Please check your email and password.');
+                });
+        });
+    </script>
+</body>
+</html>
