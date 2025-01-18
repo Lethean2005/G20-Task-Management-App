@@ -70,6 +70,7 @@ input[type="password"] {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 input[type="email"]:focus,
 input[type="password"]:focus {
     border-color: #9C6CFE;
@@ -237,7 +238,7 @@ button[type="submit"]:hover {
 @media (max-width: 768px) {
     .wrapper {
         flex-direction: column;
-        max-width: 90%;
+        max-width: 100%;
     }
 
     .image-section {
@@ -246,8 +247,11 @@ button[type="submit"]:hover {
     }
 
     .form-section {
-        width: 100%;
+        width: 90%;
         padding: 20px;
         margin: 10px;
     }
 }
+
+
+
