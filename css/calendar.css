@@ -131,12 +131,7 @@ body {
     width: calc(100% - 80px);
 }
 
-
-
-
-
-
-
+/* Calendar Styles */
 .wrapper {
 	max-width: 1100px;
 	margin: 15px auto;
