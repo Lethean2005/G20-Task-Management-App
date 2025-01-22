@@ -175,8 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to review the task
 function reviewTask(projectId) {
     console.log("Reviewing Task with projectId:", projectId);
-    // Implement your review task logic here
-    // For example, you could show a modal with more details or navigate to a different section
+
+    // Redirect to project.html with the projectId as a query parameter
+    window.location.href = `project.html?projectId=${projectId}`;
+
+    // Optionally, log or alert the task ID for debugging
     alert(`Reviewing Task with ID: ${projectId}`);
 }
 
@@ -207,5 +210,68 @@ function deleteTask(projectId, button) {
 }
 
 
+// Function to review the task with SweetAlert confirmation
+function reviewTask(projectId) {
+    console.log("Reviewing Task with projectId:", projectId);
+
+    // Show SweetAlert to confirm review action
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You will be redirected to the project page to review this task.",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, proceed!',
+        cancelButtonText: 'No, cancel!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirect to project.html with the projectId as a query parameter
+            window.location.href = `project.html?projectId=${projectId}`;
+        } else {
+            // Optionally log or alert if canceled
+            console.log('Review action canceled.');
+        }
+    });
+}
+
+// Function to delete the task with SweetAlert confirmation
+function deleteTask(projectId, button) {
+    const projectCard = button.closest('.project-card');
+
+    // Show SweetAlert to confirm delete action
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This task will be deleted permanently.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Firebase Database URL for the specific project
+            const databaseUrl = `https://task-management-6c572-default-rtdb.firebaseio.com/projects/${projectId}.json`;
+
+            // Send DELETE request to Firebase to delete the project
+            fetch(databaseUrl, {
+                method: 'DELETE', 
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Project ${projectId} deleted from Firebase.`);
+                    projectCard.remove(); // Remove the project card from DOM
+                    Swal.fire('Deleted!', 'Your task has been deleted.', 'success');
+                } else {
+                    console.error('Failed to delete the project from Firebase.');
+                    Swal.fire('Error!', 'Something went wrong, try again later.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting project from Firebase:', error);
+                Swal.fire('Error!', 'Something went wrong, try again later.', 'error');
+            });
+        } else {
+            console.log('Delete action canceled.');
+        }
+    });
+}
 
 

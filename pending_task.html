@@ -23,60 +23,96 @@
                 <span class="logo-text">Skill Task</span>
             </div>
             <ul class="menu">
-                <li>
-                    <a href="dashboard.html" >
-                        <i class="bi bi-house-door"></i> <!-- Updated to use Bootstrap icon (bi-house-door for dashboard) -->
-                        <span class="menu-text">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="project.html">
-                        <i class="bi bi-briefcase"></i> <!-- Updated to use Bootstrap icon (bi-briefcase for projects) -->
-                        <span class="menu-text">Projects</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="task.html">
-                        <i class="bi bi-check-square"></i> <!-- Updated to use Bootstrap icon (bi-check-square for tasks) -->
-                        <span class="menu-text">Tasks</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="calendar.html">
-                        <i class="bi bi-calendar-check"></i> <!-- Updated to use Bootstrap icon (bi-calendar-check for calendar) -->
-                        <span class="menu-text">Calendar</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="categories.html">
-                        <i class="bi bi-tags"></i> <!-- Updated to use Bootstrap icon (bi-tags for categories) -->
-                        <span class="menu-text">Categories</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="pending-task.html"class="active">
-                        <i class="bi bi-hourglass-split"></i> <!-- Updated to use Bootstrap icon (bi-hourglass-split for pending tasks) -->
-                        <span class="menu-text">Pending Tasks</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="completed-task.html">
-                        <i class="bi bi-check-circle"></i> <!-- Updated to use Bootstrap icon (bi-check-circle for completed tasks) -->
-                        <span class="menu-text">Completed Tasks</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="analytics.html">
-                        <i class="bi bi-bar-chart-line"></i> <!-- Updated to use Bootstrap icon (bi-bar-chart-line for analytics) -->
-                        <span class="menu-text">Analytics</span>
-                    </a>
-                </li>
+                <li><a href="dashboard.html"><i class="bi bi-house-door"></i><span class="menu-text">Dashboard</span></a></li>
+                <li><a href="project.html"><i class="bi bi-briefcase"></i><span class="menu-text">Projects</span></a></li>
+                <li><a href="task.html"><i class="bi bi-check-square"></i><span class="menu-text">Tasks</span></a></li>
+                <li><a href="calendar.html"><i class="bi bi-calendar-check"></i><span class="menu-text">Calendar</span></a></li>
+                <li><a href="categories.html"><i class="bi bi-tags"></i><span class="menu-text">Categories</span></a></li>
+                <li><a href="#" class="active"><i class="bi bi-hourglass-split"></i><span class="menu-text">Pending Tasks</span></a></li>
+                <li><a href="completed-task.html"><i class="bi bi-check-circle"></i><span class="menu-text">Completed Tasks</span></a></li>
+                <li><a href="analytics.html"><i class="bi bi-bar-chart-line"></i><span class="menu-text">Analytics</span></a></li>
             </ul>
         </div>
 
         <!-- Main Content -->
         <div class="main-content" id="mainContent">
-        </div>              
+            <div class="welcome">
+                <div class="heading">
+                    <h1>Welcome To Padding Task</h1>
+                    <p>You've completed 80% of your tasks this week. Keep up the great work and track your progress!</p>
+                    <button>Go Back To The Lessons</button>
+                </div>
+                <div class="images">
+                    <img id="imageSlider" src="images/dashbord-images/book-image.png" alt="Slider Image">
+                </div>
+            </div>
+            <div class="container" id="taskContainer"></div> <!-- Task Container for Cards -->
+        </div>               
     </div>
+
+    <!-- Include SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        async function fetchTasks() {
+            const response = await fetch('https://task-management-6c572-default-rtdb.firebaseio.com/tasks.json');
+            const tasks = await response.json();
+            displayTasks(tasks);
+        }
+
+        function displayTasks(tasks) {
+            const container = document.getElementById('taskContainer');
+            container.innerHTML = ''; // Clear any existing content
+
+            for (const id in tasks) {
+                const task = tasks[id];
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <h3>${task.name}</h3>
+                    <p><strong>Category:</strong> ${task.category}</p>
+                    <p><strong>Priority:</strong> ${task.priority}</p>
+                    <p><strong>Due Date:</strong> ${task.dueDate}</p>
+                    <button class="btn-review" onclick="reviewTask('${id}', '${task.name}')">Review</button>
+                    <button class="btn-delete" onclick="deleteTask('${id}')">Delete</button>
+                `;
+                container.appendChild(card);
+            }
+        }
+
+        async function deleteTask(id) {
+            const result = await Swal.fire({
+                title: 'Are you sure?',
+                text: "This action cannot be undone!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            });
+
+            if (result.isConfirmed) {
+                await fetch(`https://task-management-6c572-default-rtdb.firebaseio.com/tasks/${id}.json`, {
+                    method: 'DELETE'
+                });
+
+                Swal.fire('Deleted!', 'The task has been deleted.', 'success');
+                fetchTasks(); // Refresh tasks
+            }
+        }
+
+        function reviewTask(id, name) {
+            console.log(`Reviewing Task - ID: ${id}, Name: ${name}`);
+            Swal.fire({
+                title: `Task Review`,
+                text: `You're reviewing task: ${name}`,
+                icon: 'info',
+            });
+        }
+
+        // Fetch tasks on page load
+        fetchTasks();
+    </script>
+
 </body>
 </html>
+

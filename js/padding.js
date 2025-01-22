@@ -34,3 +34,6 @@ menuItems.forEach(item => {
     });
 });
 
+
+
+// Firebase Configuration

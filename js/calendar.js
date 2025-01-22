@@ -34,16 +34,13 @@ menuItems.forEach(item => {
     });
 });
 
-
-
-// calendar Storage
+// Calendar Storage
 let events = JSON.parse(localStorage.getItem('events')) || [];
 
 let eventDateInput = document.getElementById("eventDate");
 let eventTitleInput = document.getElementById("eventTitle");
 let eventDescriptionInput = document.getElementById("eventDescription");
 let reminderList = document.getElementById("reminderList");
-
 
 let eventIdCounter = events.length > 0 ? Math.max(...events.map(event => event.id)) + 1 : 1;
 
@@ -77,6 +74,20 @@ function addEvent() {
         eventTitleInput.value = "";
         eventDescriptionInput.value = "";
         displayReminders();
+
+        // SweetAlert confirmation after adding event
+        Swal.fire({
+            icon: 'success',
+            title: 'Event Added!',
+            text: 'Your event has been successfully added.',
+            showConfirmButton: true,
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Date and Title are required to add an event!',
+        });
     }
 }
 
@@ -111,8 +122,24 @@ function displayReminders() {
             let deleteButton = document.createElement("button");
             deleteButton.className = "delete-event";
             deleteButton.textContent = "Delete";
+
+            // Add SweetAlert confirmation for delete button
             deleteButton.onclick = function () {
-                deleteEvent(event.id);
+                console.log("Delete button clicked");  // Debugging line
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "This event will be deleted permanently.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log("Confirmed, deleting event with ID:", event.id);  // Debugging line
+                        deleteEvent(event.id);
+                        Swal.fire('Deleted!', 'Your event has been deleted.', 'success');
+                    }
+                });
             };
 
             listItem.appendChild(deleteButton);
@@ -130,7 +157,7 @@ function generate_year_range(start, end) {
     return years;
 }
 
-// Initialize date-related letiables
+// Initialize date-related variables
 today = new Date();
 currentMonth = today.getMonth();
 currentYear = today.getFullYear();
