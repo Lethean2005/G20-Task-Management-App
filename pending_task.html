@@ -47,72 +47,12 @@
                 </div>
             </div>
             <div class="container" id="taskContainer"></div> <!-- Task Container for Cards -->
+            <!-- seheduale event -->
         </div>               
     </div>
 
     <!-- Include SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        async function fetchTasks() {
-            const response = await fetch('https://task-management-6c572-default-rtdb.firebaseio.com/tasks.json');
-            const tasks = await response.json();
-            displayTasks(tasks);
-        }
-
-        function displayTasks(tasks) {
-            const container = document.getElementById('taskContainer');
-            container.innerHTML = ''; // Clear any existing content
-
-            for (const id in tasks) {
-                const task = tasks[id];
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <h3>${task.name}</h3>
-                    <p><strong>Category:</strong> ${task.category}</p>
-                    <p><strong>Priority:</strong> ${task.priority}</p>
-                    <p><strong>Due Date:</strong> ${task.dueDate}</p>
-                    <button class="btn-review" onclick="reviewTask('${id}', '${task.name}')">Review</button>
-                    <button class="btn-delete" onclick="deleteTask('${id}')">Delete</button>
-                `;
-                container.appendChild(card);
-            }
-        }
-
-        async function deleteTask(id) {
-            const result = await Swal.fire({
-                title: 'Are you sure?',
-                text: "This action cannot be undone!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'Cancel'
-            });
-
-            if (result.isConfirmed) {
-                await fetch(`https://task-management-6c572-default-rtdb.firebaseio.com/tasks/${id}.json`, {
-                    method: 'DELETE'
-                });
-
-                Swal.fire('Deleted!', 'The task has been deleted.', 'success');
-                fetchTasks(); // Refresh tasks
-            }
-        }
-
-        function reviewTask(id, name) {
-            console.log(`Reviewing Task - ID: ${id}, Name: ${name}`);
-            Swal.fire({
-                title: `Task Review`,
-                text: `You're reviewing task: ${name}`,
-                icon: 'info',
-            });
-        }
-
-        // Fetch tasks on page load
-        fetchTasks();
-    </script>
-
 </body>
 </html>
 
