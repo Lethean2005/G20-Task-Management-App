@@ -13,7 +13,7 @@
     <div class="container">
         <!-- Toggle Button -->
         <div class="menu-toggle" id="menuToggle">
-            <i class="bi bi-list"></i> <!-- Updated to use Bootstrap icon (bi-list for burger icon) -->
+            <i class="bi bi-list"></i>
         </div>
 
         <!-- Left Side Menu -->
@@ -24,44 +24,44 @@
             </div>
             <ul class="menu">
                 <li>
-                    <a href="dashboard.html" >
-                        <i class="bi bi-house-door"></i> <!-- Updated to use Bootstrap icon (bi-house-door for dashboard) -->
+                    <a href="dashboard.html">
+                        <i class="bi bi-house-door"></i>
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="project.html">
-                        <i class="bi bi-briefcase"></i> <!-- Updated to use Bootstrap icon (bi-briefcase for projects) -->
+                        <i class="bi bi-briefcase"></i>
                         <span class="menu-text">Projects</span>
                     </a>
                 </li>
                 <li>
                     <a href="task.html">
-                        <i class="bi bi-check-square"></i> <!-- Updated to use Bootstrap icon (bi-check-square for tasks) -->
+                        <i class="bi bi-check-square"></i>
                         <span class="menu-text">Tasks</span>
                     </a>
                 </li>
                 <li>
                     <a href="calendar.html">
-                        <i class="bi bi-calendar-check"></i> <!-- Updated to use Bootstrap icon (bi-calendar-check for calendar) -->
+                        <i class="bi bi-calendar-check"></i>
                         <span class="menu-text">Calendar</span>
                     </a>
                 </li>
                 <li>
-                    <a href="categories.html"class="active">
-                        <i class="bi bi-tags"></i> <!-- Updated to use Bootstrap icon (bi-tags for categories) -->
+                    <a href="categories.html" class ="active">
+                        <i class="bi bi-tags"></i>
                         <span class="menu-text">Categories</span>
                     </a>
                 </li>
                 <li>
                     <a href="pending_task.html">
-                        <i class="bi bi-hourglass-split"></i> <!-- Updated to use Bootstrap icon (bi-hourglass-split for pending tasks) -->
+                        <i class="bi bi-hourglass-split"></i>
                         <span class="menu-text">Pending Tasks</span>
                     </a>
                 </li>
                 <li>
                     <a href="analytics.html">
-                        <i class="bi bi-bar-chart-line"></i> <!-- Updated to use Bootstrap icon (bi-bar-chart-line for analytics) -->
+                        <i class="bi bi-bar-chart-line"></i>
                         <span class="menu-text">Analytics</span>
                     </a>
                 </li>
@@ -73,42 +73,15 @@
                 </li>
             </ul>
         </div>
+
         <!-- Main Content -->
         <div class="main-content" id="mainContent">
-            <h1>Welcome to Skill Task</h1>
+            <h1>Your Categories</h1>
             <!-- Categories Section -->
             <section class="categories-container">
                 <h1>My Categories</h1>
                 <ul id="categories-list">
-                    <li>
-                        <span>Work</span>
-                        <div class="category-actions">
-                            <button class="edit-category-btn"><i class="bi bi-pencil"></i></button>
-                            <button class="delete-category-btn"><i class="bi bi-trash"></i></button>
-                        </div>
-                    </li>
-                    <li>
-                        <span>Family</span>
-                        <div class="category-actions">
-                            <button class="edit-category-btn"><i class="bi bi-pencil"></i></button>
-                            <button class="delete-category-btn"><i class="bi bi-trash"></i></button>
-                        </div>
-                    </li>
-                    <li>
-                        <span>Proclance work Q1</span>
-                        <div class="category-actions">
-                            <button class="edit-category-btn"><i class="bi bi-pencil"></i></button>
-                            <button class="delete-category-btn"><i class="bi bi-trash"></i></button>
-                        </div>
-                    </li>
-                    <li>
-                        <span>Conference planning</span>
-                        <div class="category-actions">
-                            <button class="edit-category-btn"><i class="bi bi-pencil"></i></button>
-                            <button class="delete-category-btn"><i class="bi bi-trash"></i></button>
-                        </div>
-                    </li>
-                    <!-- More categories can be added dynamically -->
+                    <!-- Dynamic category items will be inserted here -->
                 </ul>
                 <div class="add-category">
                     <input type="text" id="new-category" placeholder="+ Add more">
@@ -116,35 +89,130 @@
                 </div>
             </section>
         </div>
-    </div>
-
-    <!-- Scripts -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
+    </div><script type="module">
+        // Import the Firebase functions
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
+        import { getDatabase, ref, push, onValue, remove, update } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+
+        // Firebase configuration
         const firebaseConfig = {
-          apiKey: "AIzaSyDX-sHpuS0og69TgIwe3JzQlIdKEbaNGXU",
-          authDomain: "task-management-6c572.firebaseapp.com",
-          databaseURL: "https://task-management-6c572-default-rtdb.firebaseio.com",
-          projectId: "task-management-6c572",
-          storageBucket: "task-management-6c572.firebasestorage.app",
-          messagingSenderId: "384210904544",
-          appId: "1:384210904544:web:e6c6ac10efcee8ccb77785"
+            apiKey: "AIzaSyDX-sHpuS0og69TgIwe3JzQlIdKEbaNGXU",
+            authDomain: "task-management-6c572.firebaseapp.com",
+            databaseURL: "https://task-management-6c572-default-rtdb.firebaseio.com",
+            projectId: "task-management-6c572",
+            storageBucket: "task-management-6c572.appspot.com",
+            messagingSenderId: "384210904544",
+            appId: "1:384210904544:web:e6c6ac10efcee8ccb77785"
         };
-      
+
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-      </script> 
+        const database = getDatabase(app);
+        const categoriesRef = ref(database, 'categories');
+
+        const categoriesList = document.getElementById('categories-list');
+        const newCategoryInput = document.getElementById('new-category');
+        const addCategoryBtn = document.getElementById('add-category-btn');
+
+        // Function to render categories
+        const renderCategories = (categories) => {
+            categoriesList.innerHTML = '';
+            for (const [key, category] of Object.entries(categories)) {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${category.name}</span>
+                    <div class="category-actions">
+                        <button class="edit-category-btn" data-id="${key}"><i class="bi bi-pencil"></i></button>
+                        <button class="delete-category-btn" data-id="${key}"><i class="bi bi-trash"></i></button>
+                    </div>
+                `;
+                categoriesList.appendChild(li);
+            }
+
+            // Attach event listeners to edit and delete buttons
+            document.querySelectorAll('.edit-category-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = e.target.closest('button').dataset.id;
+                    const newName = prompt('Edit category name:');
+                    if (newName) {
+                        update(ref(database, `categories/${id}`), { name: newName });
+                    }
+                });
+            });
+
+            document.querySelectorAll('.delete-category-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = e.target.closest('button').dataset.id;
+                    remove(ref(database, `categories/${id}`));
+                });
+            });
+        };
+
+        // Fetch categories from Firebase
+        onValue(categoriesRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                renderCategories(data);
+            } else {
+                categoriesList.innerHTML = '<li>No categories found</li>';
+            }
+        });
+
+        // Add a new category
+        addCategoryBtn.addEventListener('click', () => {
+            const categoryName = newCategoryInput.value.trim();
+            if (categoryName) {
+                push(categoriesRef, { name: categoryName });
+                newCategoryInput.value = '';
+            } else {
+                alert('Please enter a category name');
+            }
+        });
+        // DOM Elements
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const menuItems = document.querySelectorAll('.sidebar .menu li a');
+
+    // Toggle menu collapse/expand
+    menuToggle.addEventListener('click', () => {
+        // Toggle 'collapsed' class for sidebar and adjust main content
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('expanded');
+
+        // Dynamically adjust mainContent width
+        if (sidebar.classList.contains('collapsed')) {
+            mainContent.style.width = `calc(100% - 80px)`; // Sidebar is collapsed
+        } else {
+            mainContent.style.width = `calc(100% - 250px)`; // Sidebar is expanded
+        }
+
+        // Toggle the icon between 'bi-list' (menu icon) and 'bi-x' (close icon)
+        const icon = menuToggle.querySelector('i');
+        if (sidebar.classList.contains('collapsed')) {
+            icon.classList.remove('bi-list');
+            icon.classList.add('bi-x');
+        } else {
+            icon.classList.remove('bi-x');
+            icon.classList.add('bi-list');
+        }
+    });
+
+    // Highlight the active menu item on click
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Remove 'active' class from all menu items
+            menuItems.forEach(i => i.classList.remove('active'));
+            // Add 'active' class to the clicked item
+            item.classList.add('active');
+        });
+    });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notifyjs-browser/dist/notify.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="js/categories.js" defer></script>
 </body>
 </html>

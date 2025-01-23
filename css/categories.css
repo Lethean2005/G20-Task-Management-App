@@ -235,3 +235,25 @@ body {
         top: 10px;
     }
 }
+
+/* Style for category action buttons */
+.category-actions button {
+    padding: 10px; 
+    font-size: 18px; 
+    border: none; 
+    background-color: transparent; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+/* Add hover effect */
+.category-actions button:hover {
+    background-color: #f0f0f0; 
+    border-radius: 4px; 
+}
+
+/* Focused button for accessibility */
+.category-actions button:focus {
+    outline: none; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
