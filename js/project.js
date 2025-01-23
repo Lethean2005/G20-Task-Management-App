@@ -427,3 +427,41 @@ backToProjects.addEventListener("click", () => {
 window.addEventListener("load", () => {
   loadProjects();
 });
+
+
+
+// Function to fetch categories from Firebase and populate the select dropdown
+function loadCategories() {
+  const categoriesRef = ref(database, 'categories');  // Path to categories in Firebase
+  get(categoriesRef)
+      .then((snapshot) => {
+          if (snapshot.exists()) {
+              const categories = snapshot.val();
+              const projectCategorySelect = document.getElementById("projectCategory");
+              
+              // Clear existing options
+              projectCategorySelect.innerHTML = '';
+
+              // Iterate over categories and add them to the dropdown
+              Object.entries(categories).forEach(([key, value]) => {
+                  const option = document.createElement('option');
+                  option.value = key;  // Using the key as value
+                  option.textContent = value.name || value;  // Use value.name to get the category name or fallback to value
+                  projectCategorySelect.appendChild(option);
+              });
+              
+              // Log categories as a string
+              console.log(JSON.stringify(categories));
+          } else {
+              console.log("No categories found.");
+          }
+      })
+      .catch((error) => {
+          console.error("Error loading categories:", error);
+      });
+}
+
+// Call loadCategories on page load or whenever needed
+window.addEventListener("load", () => {
+  loadCategories();
+});
