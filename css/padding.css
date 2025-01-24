@@ -268,3 +268,29 @@ body {
     }
   }
   
+  .btn-review {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.btn-review:hover {
+    background-color: #4cae4c;
+}
+
+.btn-remove {
+    background-color: #d9534f; /* Red color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-remove:hover {
+    background-color: #c9302c; /* Darker red on hover */
+}

@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Padding Task</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/setting.css">
-    <script src="js/setting.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" href="images/logoicon.png" type="image/x-icon">
+    <script src="js/setting.js" defer></script>
 </head>
 <body>
     <div class="container">
         <!-- Toggle Button -->
         <div class="menu-toggle" id="menuToggle">
-            <i class="bi bi-list"></i> <!-- Updated to use Bootstrap icon (bi-list for burger icon) -->
+            <i class="bi bi-list"></i>
         </div>
 
         <!-- Left Side Menu -->
@@ -23,61 +24,30 @@
                 <span class="logo-text">Skill Task</span>
             </div>
             <ul class="menu">
-                <li>
-                    <a href="dashboard.html" >
-                        <i class="bi bi-house-door"></i> <!-- Updated to use Bootstrap icon (bi-house-door for dashboard) -->
-                        <span class="menu-text">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="project.html">
-                        <i class="bi bi-briefcase"></i> <!-- Updated to use Bootstrap icon (bi-briefcase for projects) -->
-                        <span class="menu-text">Projects</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="task.html">
-                        <i class="bi bi-check-square"></i> <!-- Updated to use Bootstrap icon (bi-check-square for tasks) -->
-                        <span class="menu-text">Tasks</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="calendar.html">
-                        <i class="bi bi-calendar-check"></i> <!-- Updated to use Bootstrap icon (bi-calendar-check for calendar) -->
-                        <span class="menu-text">Calendar</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="categories.html">
-                        <i class="bi bi-tags"></i> <!-- Updated to use Bootstrap icon (bi-tags for categories) -->
-                        <span class="menu-text">Categories</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="pending_task.html">
-                        <i class="bi bi-hourglass-split"></i> <!-- Updated to use Bootstrap icon (bi-hourglass-split for pending tasks) -->
-                        <span class="menu-text">Pending Tasks</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="analytics.html">
-                        <i class="bi bi-bar-chart-line"></i> <!-- Updated to use Bootstrap icon (bi-bar-chart-line for analytics) -->
-                        <span class="menu-text">Analytics</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="setting.html"class="active">
-                        <i class="bi bi-gear"></i>
-                        <span class="menu-text">Setting</span>
-                    </a>
-                </li>
+                <li><a href="dashboard.html"><i class="bi bi-house-door"></i><span class="menu-text">Dashboard</span></a></li>
+                <li><a href="project.html"><i class="bi bi-briefcase"></i><span class="menu-text">Projects</span></a></li>
+                <li><a href="task.html"><i class="bi bi-check-square"></i><span class="menu-text">Tasks</span></a></li>
+                <li><a href="calendar.html"><i class="bi bi-calendar-check"></i><span class="menu-text">Calendar</span></a></li>
+                <li><a href="categories.html"><i class="bi bi-tags"></i><span class="menu-text">Categories</span></a></li>
+                <li><a href="pending_task.html"><i class="bi bi-hourglass-split"></i><span class="menu-text">Pending Tasks</span></a></li>
+                <li><a href="analytics.html"><i class="bi bi-bar-chart-line"></i><span class="menu-text">Analytics</span></a></li>
+                <li><a href="setting.html" class="active"><i class="bi bi-gear"></i><span class="menu-text">Setting</span></a></li>
             </ul>
         </div>
-
-        <!-- Main Content -->
         <div class="main-content" id="mainContent">
-            
-        </div>  
-    </div>  
-</body>
-</html>
+            <div class="welcome">
+                <div class="heading">
+                    <h1>Welcome To Padding Task</h1>
+                    <p>You've completed 80% of your tasks this week. Keep up the great work and track your progress!</p>
+                    <button>Go Back To The Lessons</button>
+                </div>
+                <div class="images">
+                    <img id="imageSlider" src="images/dashbord-images/book-image.png" alt="Slider Image">
+                </div>
+            </div>
+            <div class="container" id="taskContainer">
+                <!-- Categories will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
