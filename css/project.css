@@ -73,7 +73,6 @@ body {
 
 .sidebar .logo-text {
     font-size: 20px;
-    /* font-weight: bold; */
 }
 
 .sidebar .menu {
@@ -241,24 +240,30 @@ body {
 
 /* Background colors and left border for each category */
 #todoList .list-group-item {
-    background-color: #e3f2fd; /* Light blue for Todo */
+    background-color: #e3f2fd; 
     border-left: 6px solid #2196f3;
 }
 
 #inProgressList .list-group-item {
-    background-color: #fff3e0; /* Light orange for In Progress */
+    background-color: #fff3e0; 
     border-left: 6px solid #ff9800;
 }
 
 #stuckList .list-group-item {
-    background-color: #ffebee; /* Light red for Stuck */
+    background-color: #ffebee; 
     border-left: 6px solid #f44336;
 }
 
 #completeList .list-group-item {
-    background-color: #e8f5e9; /* Light green for Complete */
+    background-color: #e8f5e9; 
     border-left: 6px solid #4caf50;
 }
+
+
+
+
+
+
 
 /* Project Card Styles */
 .card {

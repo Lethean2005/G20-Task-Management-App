@@ -4,25 +4,26 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
     background-color: #f4f4f9;
     color: #333;
-    font-family: "Open Sans", serif;
+    font-family: 'poppins', sans-serif;
 }
 
 .container {
     display: flex;
     min-height: 100vh;
     position: relative;
-    overflow: hidden; /* Prevent scrolling in container */
+    overflow: hidden;
 }
 
 /* Toggle Button */
 .menu-toggle {
     position: fixed;
-    top: 40px;
+    top: 20px;
     left: 20px;
     font-size: 24px;
     cursor: pointer;
@@ -40,7 +41,7 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    overflow: hidden; /* Prevent sidebar overflow */
+    overflow: hidden; 
 }
 
 .sidebar.collapsed {
@@ -66,13 +67,13 @@ body {
 }
 
 .sidebar .logo img {
-    width: 100px;
+    width: 50px;
     margin-right: 0px;
     transition: width 0.3s ease, height 0.3s ease;
 }
 
 .sidebar .logo-text {
-    font-size: 25px;
+    font-size: 20px;
     /* font-weight: bold; */
 }
 
@@ -88,7 +89,7 @@ body {
 .sidebar .menu li a {
     display: flex;
     align-items: center;
-    padding: 12px 20px;
+    padding: 8px 18px;
     color: #fff;
     text-decoration: none;
     border-radius: 8px;
@@ -96,10 +97,10 @@ body {
 }
 
 .sidebar .menu li a:hover {
-    background-color: #1abc9c; /* Lighter hover color */
-    padding-left: 30px;  /* Add space on left side */
-    border-radius: 20px;  /* Round corners on hover */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Subtle shadow effect */
+    background-color: #1abc9c; 
+    padding-left: 30px;  
+    border-radius: 20px;  
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
 }
 
 .sidebar .menu li a.active {
@@ -109,15 +110,16 @@ body {
 
 .sidebar .menu li a.active:hover {
     background-color: #1abc9c;
-    padding-left: 30px;  /* Maintain hover effect even when active */
-    border-radius: 20px;  /* Round corners on hover */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Keep shadow on active hover */
+    padding-left: 30px;  
+    border-radius: 20px;  
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
 }
 
 .sidebar .menu li a i {
     font-size: 20px;
     margin-right: 10px;
 }
+
 
 
 
