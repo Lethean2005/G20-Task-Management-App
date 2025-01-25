@@ -2,13 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    box-sizing: border-box;
 }
 
 body {
     background-color: #f4f4f9;
     color: #333;
-    font-family: 'poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .container {
@@ -72,7 +71,6 @@ body {
 
 .sidebar .logo-text {
     font-size: 20px;
-    /* font-weight: bold; */
 }
 
 .sidebar .menu {
@@ -117,12 +115,13 @@ body {
     font-size: 20px;
     margin-right: 10px;
 }
+
 /* Main Content Styles */
 .main-content {
     margin-left: 250px;
     padding: 20px;
     width: calc(100% - 250px);
-    overflow-y: auto; /* Allow scrolling for main content */
+    overflow-y: auto;
 }
 
 .main-content.expanded {
@@ -130,20 +129,183 @@ body {
     width: calc(100% - 80px);
 }
 
-/* Main Content Styles */
-.main-content {
-    margin-left: 250px;
+.contain {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-left: 90px;
     padding: 20px;
-    width: calc(100% - 250px);
-    overflow-y: auto; /* Allow scrolling for main content */
+    width: calc(100% - 270px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
-.main-content.expanded {
-    margin-left: 80px;
-    width: calc(100% - 80px);
+.profile-info {
+    margin-bottom: 20px;
 }
 
+.profile-info p {
+    font-size: 18px;
+    margin: 5px 0;
+}
 
+.profile-info span {
+    font-weight: bold;
+}
 
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
+.edit-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
+.edit-button:hover {
+    background-color: #0056b3;
+}
+
+.file-input {
+    margin-top: 10px;
+}
+
+.toggle {
+    margin-top: 30px;
+}
+
+.logout button {
+    background-color: red;
+    color: white;
+    width: 15%;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout button:hover {
+    background-color: darkred;
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 10px 0;
+    object-fit: cover;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #333;
+    color: #f5f5f5;
+}
+
+.dark-mode .sidebar {
+    background-color: #444;
+}
+
+.dark-mode .edit-button {
+    background-color: #0056b3;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .sidebar.collapsed {
+        width: 60px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+
+    .main-content.expanded {
+        margin-left: 60px;
+        width: calc(100% - 60px);
+    }
+
+    .contain {
+        margin-left: 60px;
+        width: calc(100% - 180px);
+    }
+
+    .profile-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .sidebar .menu li a {
+        padding: 10px 15px;
+    }
+
+    .edit-button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .logout button {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .sidebar {
+        width: 100%;
+    }
+
+    .sidebar.collapsed {
+        width: 60px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .contain {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .profile-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .menu-toggle {
+        font-size: 20px;
+    }
+
+    .sidebar .menu li a {
+        padding: 8px 12px;
+    }
+
+    .edit-button {
+        padding: 7px 12px;
+        font-size: 13px;
+    }
+
+    .logout button {
+        width: 50%;
+    }
+}

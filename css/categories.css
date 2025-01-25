@@ -257,3 +257,42 @@ body {
     outline: none; 
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
 }
+/* Global Styles (No changes here) */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+    }
+
+    .sidebar .logo-text,
+    .sidebar .menu-text {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 80px;
+    }
+
+    .menu-toggle {
+        left: 10px;
+        top: 10px;
+    }
+
+    /* Responsive add category button adjustments */
+    .add-category {
+        flex-direction: column; /* Stack input and button vertically */
+        gap: 5px; /* Reduce gap for smaller screens */
+    }
+
+    #new-category {
+        width: 100%; /* Full width for the input */
+        padding: 8px;
+        font-size: 14px; /* Smaller font for smaller screens */
+    }
+
+    #add-category-btn {
+        padding: 8px 16px; /* Adjust padding for smaller screen */
+        font-size: 14px; /* Smaller text size */
+    }
+}

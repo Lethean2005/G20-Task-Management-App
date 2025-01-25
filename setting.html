@@ -6,9 +6,9 @@
     <title>Padding Task</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/setting.css">
+    <script src="js/setting.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" href="images/logoicon.png" type="image/x-icon">
-    <script src="js/setting.js" defer></script>
 </head>
 <body>
     <div class="container">
@@ -26,7 +26,6 @@
             <ul class="menu">
                 <li><a href="dashboard.html"><i class="bi bi-house-door"></i><span class="menu-text">Dashboard</span></a></li>
                 <li><a href="project.html"><i class="bi bi-briefcase"></i><span class="menu-text">Projects</span></a></li>
-                <li><a href="task.html"><i class="bi bi-check-square"></i><span class="menu-text">Tasks</span></a></li>
                 <li><a href="calendar.html"><i class="bi bi-calendar-check"></i><span class="menu-text">Calendar</span></a></li>
                 <li><a href="categories.html"><i class="bi bi-tags"></i><span class="menu-text">Categories</span></a></li>
                 <li><a href="pending_task.html"><i class="bi bi-hourglass-split"></i><span class="menu-text">Pending Tasks</span></a></li>
@@ -34,20 +33,43 @@
                 <li><a href="setting.html" class="active"><i class="bi bi-gear"></i><span class="menu-text">Setting</span></a></li>
             </ul>
         </div>
+        <!-- Main Content -->
         <div class="main-content" id="mainContent">
-            <div class="welcome">
-                <div class="heading">
-                    <h1>Welcome To Padding Task</h1>
-                    <p>You've completed 80% of your tasks this week. Keep up the great work and track your progress!</p>
-                    <button>Go Back To The Lessons</button>
+            <div class="contain">
+                <h1>Profile</h1>
+
+                <!-- Profile Picture -->
+                <div class="form-group">
+                    <label for="profilePicture">Profile Picture:</label>
+                    <img id="profileImg" class="profile-img" src="https://via.placeholder.com/100" alt="Profile Picture" />
+                    <input type="file" id="profilePicture" class="file-input" onchange="previewProfilePicture(event)" />
                 </div>
-                <div class="images">
-                    <img id="imageSlider" src="images/dashbord-images/book-image.png" alt="Slider Image">
+
+                <!-- Profile Information -->
+                <div class="profile-info">
+                    <p><span>Name:</span> <span id="profileName">John Doe</span></p>
+                    <p><span>Email:</span> <span id="profileEmail">johndoe@example.com</span></p>
+                    <p><span>Bio:</span> <span id="profileBio">A short bio about the user.</span></p>
                 </div>
-            </div>
-            <div class="container" id="taskContainer">
-                <!-- Categories will be dynamically loaded here -->
+
+                <!-- Edit Button -->
+                <button class="edit-button" onclick="editProfile()">Edit Profile</button>
+
+                <!-- Night Mode Toggle -->
+                <div class="toggle">
+                    <span>Night Mode</span>
+                    <label class="switch">
+                        <input type="checkbox" id="nightModeToggle" />
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <!-- Logout -->
+                <div class="logout">
+                    <button onclick="logout()">Log Out</button>
+                </div>
             </div>
         </div>
     </div>
-
+</body>
+</html>

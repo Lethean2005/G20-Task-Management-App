@@ -130,20 +130,25 @@ body {
     width: calc(100% - 80px);
 }
 
+
+/* Welcome Section */
 .welcome {
     background-image: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%);
     display: flex;
+    flex-direction: column; /* Stack content vertically on small screens */
+    align-items: center; /* Center-align content */
     border: none;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 20px;
-    padding: 30px;
+    padding: 20px;
     width: 100%;
     margin-bottom: 20px;
-    align-items: center;
+    text-align: center; /* Center-align text */
 }
 
 .welcome h1 {
     margin-bottom: 20px;
+    font-size: 24px; /* Adjust font size for smaller screens */
 }
 
 .welcome p {
@@ -153,15 +158,16 @@ body {
 }
 
 .welcome img {
-    width: 200px;
+    width: 150px; /* Smaller image for mobile */
     height: auto;
-    margin-left: 20px;
+    margin-left: 0; /* Remove left margin */
+    margin-top: 20px; /* Add space between text and image */
 }
 
 .welcome button {
-    width: 50%;
+    width: 100%; /* Full-width button for better usability */
     margin-top: 16px;
-    padding: 15px 20px;
+    padding: 12px 20px;
     border-radius: 20px;
     border: none;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -179,47 +185,46 @@ body {
     box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 15px;
 }
 
-
-
-
-
-
+/* Container for Cards */
 .container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
-  }
-  
-  .card {
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+/* Card Styles */
+.card {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start; /* Align content to the left */
+    align-items: flex-start;
     height: auto;
-    background: linear-gradient(135deg, #007b7f, #72d8e8); /* Gradient background */
+    background: linear-gradient(135deg, #007b7f, #72d8e8);
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    min-width: 290px;
-    flex: 1 1 calc(33.33% - 20px);
-    max-width: 350px;
+    width: 100%; /* Full width by default */
     transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .card h3 {
+}
+
+.card h3 {
     margin: 0 0 10px;
     color: #fff;
-  }
-  
-  .card p {
+    font-size: 20px; /* Adjust font size for smaller screens */
+}
+
+.card p {
     margin: 5px 0;
     color: #f1f1f1;
-  }
-  
-  .card button {
+    font-size: 14px; 
+}
+
+.card button {
     margin-top: 10px;
     padding: 8px 16px;
     border: none;
@@ -229,68 +234,65 @@ body {
     font-weight: bold;
     color: #fff;
     transition: background 0.2s, transform 0.2s;
-  }
-  
-  .card .btn-review {
-    background-color: #4caf50; /* Green for Review */
+}
+
+.card .btn-review {
+    background-color: #4caf50; 
     margin-right: 10px;
-  }
-  
-  .card .btn-review:hover {
+}
+
+.card .btn-review:hover {
     background-color: #45a049;
     transform: scale(1.05);
-  }
-  
-  .card .btn-delete {
-    background-color: #f44336; /* Red for Delete */
-  }
-  
-  .card .btn-delete:hover {
+}
+
+.card .btn-delete {
+    background-color: #f44336; 
+}
+
+.card .btn-delete:hover {
     background-color: #e53935;
     transform: scale(1.05);
-  }
-  
-  .card:hover {
+}
+
+.card:hover {
     transform: scale(1.03);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Better responsiveness */
-  @media (max-width: 1024px) {
-    .card {
-      flex: 1 1 calc(50% - 20px);
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .card {
-      flex: 1 1 100%;
-    }
-  }
-  
-  .btn-review {
-    background-color: #5cb85c;
-    color: white;
+}
+.btn-remove{
+    background-color: red;
+    color: black;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.2s, transform 0.2s;
+}
+/* Responsive Design */
+@media (min-width: 600px) {
+    .welcome {
+        flex-direction: row; 
+        text-align: left; 
+    }
+
+    .welcome img {
+        margin-left: 20px; 
+        margin-top: 0; 
+    }
+
+    .welcome button {
+        width: 50%; 
+    }
+
+    .card {
+        flex: 1 1 calc(50% - 20px); 
+    }
 }
 
-.btn-review:hover {
-    background-color: #4cae4c;
-}
-
-.btn-remove {
-    background-color: #d9534f; /* Red color */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btn-remove:hover {
-    background-color: #c9302c; /* Darker red on hover */
+@media (min-width: 900px) {
+    .card {
+        flex: 1 1 calc(33.33% - 20px); 
+    }
 }
