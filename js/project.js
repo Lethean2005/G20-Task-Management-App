@@ -1,14 +1,14 @@
+
+// Sidebar toggle
 const menuToggle = document.getElementById('menuToggle');
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.getElementById('mainContent');
         const menuItems = document.querySelectorAll('.sidebar .menu li a');
 
-        // Toggle menu collapse/expand
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('collapsed');
             mainContent.classList.toggle('expanded');
             
-            // Toggle the icon between list and x (using bi-list and bi-x)
             const icon = menuToggle.querySelector('i');
             if (sidebar.classList.contains('collapsed')) {
                 icon.classList.remove('bi-list');
@@ -19,7 +19,7 @@ const menuToggle = document.getElementById('menuToggle');
             }
         });
 
-        // Add active class to clicked menu item
+        
         menuItems.forEach(item => {
             item.addEventListener('click', () => {
                 menuItems.forEach(i => i.classList.remove('active'));
@@ -28,8 +28,6 @@ const menuToggle = document.getElementById('menuToggle');
         });
 
 
-// add hovered class to selected list item
-// ======================code front-end ==========================
 
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
@@ -53,7 +51,6 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 // DOM elements
-const projectForm = document.getElementById("projectForm");
 const projectInput = document.getElementById("projectInput");
 const projectDescription = document.getElementById("projectDescription");
 const projectCategory = document.getElementById("projectCategory");
@@ -75,39 +72,13 @@ const completeList = document.getElementById("completeList");
 const backToProjects = document.getElementById("backToProjects");
 const searchInput = document.getElementById("searchInput");
 const projectSection = document.getElementById("projectSection");
+const createProjectButton = document.getElementById("createProjectButton");
+const projectForm = document.getElementById("projectForm");
+const cancelProjectForm = document.getElementById("cancelProjectForm");
 
-let projects = []; // No localStorage initialization
+
+let projects = []; 
 let selectedProjectId = null;
-
-// Save project to Firebase
-function saveProject(project) {
-  const projectRef = ref(database, `projects/${project.id || push(ref(database, 'projects')).key}`);
-  set(projectRef, project)
-    .then(() => {
-      console.log("Project saved to Firebase!");
-      loadProjects(); // Reload projects after saving
-    })
-    .catch((error) => {
-      console.error("Error saving project:", error);
-    });
-}
-
-// Load projects from Firebase
-function loadProjects() {
-  const projectsRef = ref(database, 'projects');
-  get(projectsRef)
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        projects = Object.entries(snapshot.val()).map(([id, project]) => ({ id, ...project }));
-        renderProjects();
-      } else {
-        console.log("No projects found in Firebase.");
-      }
-    })
-    .catch((error) => {
-      console.error("Error loading projects:", error);
-    });
-}
 
 
 // Render projects
@@ -139,7 +110,7 @@ function renderProjects() {
 }
 
 
-// Add project event listener
+// Save project event listener
 projectForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const project = {
@@ -152,15 +123,64 @@ projectForm.addEventListener("submit", (e) => {
     progress: 0,
     tasks: []
   };
+  console.log("Form submitted with data:", project); // Debugging
   saveProject(project);
+  projectForm.reset();
+  projectForm.style.display = "none";
+  createProjectButton.style.display = "block";
+});
+
+
+// Save project to Firebase
+function saveProject(project) {
+  console.log("Saving project:", project); // Debugging
+  const projectRef = ref(database, `projects/${project.id || push(ref(database, 'projects')).key}`);
+  set(projectRef, project)
+    .then(() => {
+      console.log("Project saved to Firebase!");
+      loadProjects();
+    })
+    .catch((error) => {
+      console.error("Error saving project:", error);
+    });
+}
+
+
+// Show the form when "Create Project" button is clicked
+createProjectButton.addEventListener("click", () => {
+  projectForm.style.display = "block";
+  createProjectButton.style.display = "none";
+});
+
+
+// Hide the form when "Cancel" button is clicked
+cancelProjectForm.addEventListener("click", () => {
+  projectForm.style.display = "none";
+  createProjectButton.style.display = "block";
   projectForm.reset();
 });
 
 
+// Load projects from Firebase
+function loadProjects() {
+  const projectsRef = ref(database, 'projects');
+  get(projectsRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        projects = Object.entries(snapshot.val()).map(([id, project]) => ({ id, ...project }));
+        renderProjects();
+      } else {
+        console.log("No projects found in Firebase.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error loading projects:", error);
+    });
+}
+
+
 // Edit a project
-// Make editProject globally accessible
 window.editProject = function (projectId) {
-  // Reference to the project in Firebase
   const projectRef = ref(database, `projects/${projectId}`);
 
   // Fetch the project data from Firebase
@@ -242,21 +262,67 @@ window.editProject = function (projectId) {
 };
 
 
+// Delete project
+window.deleteProject = function (projectId) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const projectRef = ref(database, `projects/${projectId}`);
+      remove(projectRef)
+        .then(() => {
+          Swal.fire(
+            'Deleted!',
+            'Your project has been deleted.',
+            'success'
+          );
+          loadProjects(); 
+        })
+        .catch((error) => {
+          console.error("Error deleting project:", error);
+          Swal.fire(
+            'Error!',
+            'Failed to delete project.',
+            'error'
+          );
+        });
+    }
+  });
+};
+
+
+
 // View tasks for a project
-// Ensure viewTasks is in the global scope
 window.viewTasks = function (projectId) {
-  console.log("viewTasks called with projectId:", projectId); // Debugging
-  selectedProjectId = projectId;
+  console.log("viewTasks called with projectId:", projectId); 
   const project = projects.find((p) => p.id === projectId);
   if (project) {
-    selectedProjectName.textContent = project.name;
-    projectSection.style.display = "none";
-    taskSection.style.display = "block";
-    loadTasks(projectId);
+      selectedProjectName.textContent = project.name;
+      projectSection.style.display = "none";
+      taskSection.style.display = "block";
+      taskForm.style.display = "none"; 
+      loadTasks(projectId);
   } else {
-    console.error("Project not found with ID:", projectId);
+      console.error("Project not found with ID:", projectId);
   }
 };
+
+
+// Toggle Task Form Visibility
+document.getElementById("toggleTaskFormButton").addEventListener("click", function () {
+  const taskForm = document.getElementById("taskForm");
+  if (taskForm.style.display === "none") {
+      taskForm.style.display = "block"; // Show the form
+  } else {
+      taskForm.style.display = "none"; // Hide the form
+  }
+});
 
 
 // Load tasks for the selected project
@@ -306,31 +372,73 @@ function renderTasks(tasks) {
   });
 }
 
+
 // Add task event listener
 taskForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const task = {
-    name: taskInput.value.trim(),
-    category: categoryInput.value,
-    priority: priorityInput.value,
-    dueDate: dueDateInput.value
+      name: taskInput.value.trim(),
+      category: categoryInput.value,
+      priority: priorityInput.value,
+      dueDate: dueDateInput.value
   };
   saveTask(selectedProjectId, task);
   taskForm.reset();
+  taskForm.style.display = "none"; 
 });
 
-// Save task to Firebase
+
+// Cancel Task Form
+document.getElementById("cancelTaskForm").addEventListener("click", function () {
+  taskForm.style.display = "none"; 
+  taskForm.reset(); 
+});
+
+
+/// Save task to Firebase
 function saveTask(projectId, task) {
   const taskRef = ref(database, `projects/${projectId}/tasks/${task.id || push(ref(database, `projects/${projectId}/tasks`)).key}`);
   set(taskRef, task)
-    .then(() => {
-      console.log("Task saved successfully!");
-      loadTasks(projectId); // Reload tasks after saving
-    })
-    .catch((error) => {
-      console.error("Error saving task:", error);
-    });
+      .then(() => {
+          Swal.fire(
+              'Success!',
+              'Task saved successfully!',
+              'success'
+          );
+          loadTasks(projectId); 
+      })
+      .catch((error) => {
+          console.error("Error saving task:", error);
+          Swal.fire(
+              'Error!',
+              'Failed to save task.',
+              'error'
+          );
+      });
 }
+
+
+// Search tasks
+document.getElementById("searchInput").addEventListener("input", function (e) {
+  const searchTerm = e.target.value.trim().toLowerCase(); 
+  filterTasks(searchTerm); 
+});
+
+
+// Function to filter tasks
+function filterTasks(searchTerm) {
+  const allTasks = document.querySelectorAll(".list-group-item"); 
+
+  allTasks.forEach((task) => {
+      const taskName = task.querySelector("span").textContent.toLowerCase(); 
+      if (taskName.includes(searchTerm)) {
+          task.style.display = "block"; 
+      } else {
+          task.style.display = "none"; 
+      }
+  });
+}
+
 
 // Edit task
 window.editTask = function editTask(projectId, taskId) {
@@ -374,7 +482,7 @@ window.editTask = function editTask(projectId, taskId) {
             update(taskRef, { name, category, priority, dueDate })
               .then(() => {
                 console.log("Task updated successfully!");
-                loadTasks(projectId); // Reload tasks after updating
+                loadTasks(projectId); 
               })
               .catch((error) => {
                 console.error("Error updating task:", error);
@@ -388,80 +496,53 @@ window.editTask = function editTask(projectId, taskId) {
     });
 }
 
+
 // Delete task
 window.deleteTask = function (projectId, taskId) {
-  console.log("deleteTask called with projectId:", projectId, "and taskId:", taskId); // Debugging
-  const taskRef = ref(database, `projects/${projectId}/tasks/${taskId}`);
-  remove(taskRef)
-    .then(() => {
-      console.log("Task deleted successfully!");
-      loadTasks(projectId); // Reload tasks after deleting
-    })
-    .catch((error) => {
-      console.error("Error deleting task:", error);
-    });
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const taskRef = ref(database, `projects/${projectId}/tasks/${taskId}`);
+      remove(taskRef)
+        .then(() => {
+          Swal.fire(
+            'Deleted!',
+            'Your task has been deleted.',
+            'success'
+          );
+          loadTasks(projectId); 
+        })
+        .catch((error) => {
+          console.error("Error deleting task:", error);
+          Swal.fire(
+            'Error!',
+            'Failed to delete task.',
+            'error'
+          );
+        });
+    }
+  });
 };
 
-// Delete project
-// Ensure deleteProject is in the global scope
-window.deleteProject = function (projectId) {
-  console.log("deleteProject called with projectId:", projectId); // Debugging
-  const projectRef = ref(database, `projects/${projectId}`);
-  remove(projectRef)
-    .then(() => {
-      console.log("Project deleted successfully!");
-      loadProjects(); // Reload projects after deleting
-    })
-    .catch((error) => {
-      console.error("Error deleting project:", error);
-    });
-};
+
 
 // Go back to projects
 backToProjects.addEventListener("click", () => {
-  projectSection.style.display = "block";
-  taskSection.style.display = "none";
+  projectSection.style.display = "block"; 
+  taskSection.style.display = "none"; 
+  projectForm.style.display = "none"; 
+  createProjectButton.style.display = "block"; 
 });
+
 
 // Load projects on page load
 window.addEventListener("load", () => {
   loadProjects();
-});
-
-
-
-// Function to fetch categories from Firebase and populate the select dropdown
-function loadCategories() {
-  const categoriesRef = ref(database, 'categories');  // Path to categories in Firebase
-  get(categoriesRef)
-      .then((snapshot) => {
-          if (snapshot.exists()) {
-              const categories = snapshot.val();
-              const projectCategorySelect = document.getElementById("projectCategory");
-              
-              // Clear existing options
-              projectCategorySelect.innerHTML = '';
-
-              // Iterate over categories and add them to the dropdown
-              Object.entries(categories).forEach(([key, value]) => {
-                  const option = document.createElement('option');
-                  option.value = key;  // Using the key as value
-                  option.textContent = value.name || value;  // Use value.name to get the category name or fallback to value
-                  projectCategorySelect.appendChild(option);
-              });
-              
-              // Log categories as a string
-              console.log(JSON.stringify(categories));
-          } else {
-              console.log("No categories found.");
-          }
-      })
-      .catch((error) => {
-          console.error("Error loading categories:", error);
-      });
-}
-
-// Call loadCategories on page load or whenever needed
-window.addEventListener("load", () => {
-  loadCategories();
 });
