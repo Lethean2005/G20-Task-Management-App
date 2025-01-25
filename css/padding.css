@@ -396,6 +396,7 @@ body {
         font-size: 16px;
     }
 }
+
 /* Responsive Design */
 @media (min-width: 600px) {
     .welcome {

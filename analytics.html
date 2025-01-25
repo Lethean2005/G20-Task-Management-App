@@ -93,93 +93,163 @@
                         <span>14% of total</span>
                     </div>
                 </section>
-                <!-- Shipment Chart -->
+        
+                <!-- Charts Section -->
                 <section class="chart-container">
                     <h2>To Do Analytics</h2>
                     <canvas id="shipmentChart" width="400" height="200"></canvas>
                 </section>
-
-                <!-- Revenue Chart -->
+        
                 <section class="chart-container">
                     <h2>The Process Analytics</h2>
                     <canvas id="revenueChart" width="400" height="200"></canvas>
                 </section>
-
-                <!-- Expenses Chart -->
+        
                 <section class="chart-container">
                     <h2>Done Analytics</h2>
                     <canvas id="expensesChart" width="400" height="200"></canvas>
                 </section>
-
+        
                 <!-- Buttons for Time Frame Selection -->
                 <div class="chart-buttons">
-                    <button class="active">Year</button>
-                    <button>Month</button>
-                    <button>Week</button>
-                    <button>All</button>
+                    <button id="yearBtn">Year</button>
+                    <button id="monthBtn">Month</button>
+                    <button id="weekBtn">Week</button>
+                    <button id="allBtn">All</button>
                 </div>
-        </div>
-    </div>
-    <!-- Scripts -->
-    <script>
-// // Firebase Configuration (same as in your Project Page)
-const firebaseConfig = {
-    apiKey: "AIzaSyDX-sHpuS0og69TgIwe3JzQlIdKEbaNGXU",
-    authDomain: "task-management-6c572.firebaseapp.com",
-    databaseURL: "https://task-management-6c572-default-rtdb.firebaseio.com",
-    projectId: "task-management-6c572",
-    storageBucket: "task-management-6c572.firebasestorage.app",
-    messagingSenderId: "384210904544",
-    appId: "1:384210904544:web:e6c6ac10efcee8ccb77785"
-};
+            </div>
+        
+            <!-- Scripts -->
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                // Sample data for the charts (Replace with your actual data)
+                const chartData = {
+                    shipment: {
+                        labels: ["Project A", "Project B", "Project C"],
+                        data: [15, 50, 35]
+                    },
+                    revenue: {
+                        labels: ["Q1", "Q2", "Q3", "Q4"],
+                        data: [25, 45, 70, 55]
+                    },
+                    expenses: {
+                        labels: ["Task 1", "Task 2", "Task 3", "Task 4"],
+                        data: [30, 40, 50, 60]
+                    }
+                };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+                // Initialize the charts
+                let shipmentChartInstance, revenueChartInstance, expensesChartInstance;
 
-// Function to fetch project data from Firebase
-function fetchProjectData() {
-    const projectRef = database.ref('projects/');
+                function initializeCharts(timeFrame) {
+                    const data = timeFrame === 'year' ? chartData : timeFrame === 'month' ? chartData : timeFrame === 'week' ? chartData : chartData;
 
-    projectRef.on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            console.log('Fetched project data:', data);
-            processDataForCharts(data); // Process data for charts
-        } else {
-            console.error('No project data found.');
-        }
-    });
-}
+                    if (shipmentChartInstance) shipmentChartInstance.destroy();
+                    shipmentChartInstance = new Chart(document.getElementById('shipmentChart').getContext('2d'), {
+                        type: 'bar',
+                        data: {
+                            labels: data.shipment.labels,
+                            datasets: [{
+                                label: 'To Do Analytics (%)',
+                                data: data.shipment.data,
+                                backgroundColor: '#FFB6C1',
+                                borderColor: '#FF6347',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            }
+                        }
+                    });
 
-// Function to process fetched data for charts
-function processDataForCharts(projectData) {
-    const labels = [];
-    const progressData = [];
-    const statusData = [];
+                    if (revenueChartInstance) revenueChartInstance.destroy();
+                    revenueChartInstance = new Chart(document.getElementById('revenueChart').getContext('2d'), {
+                        type: 'line',
+                        data: {
+                            labels: data.revenue.labels,
+                            datasets: [{
+                                label: 'The Process Analytics (%)',
+                                data: data.revenue.data,
+                                fill: false,
+                                borderColor: '#4BC0C0',
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
+                            }
+                        }
+                    });
 
-    // Loop through project data
-    for (const projectId in projectData) {
-        const project = projectData[projectId];
-        labels.push(project.title); // Use project titles as labels
-        progressData.push(project.progress); // Use progress for the chart
-        statusData.push(project.status); // Use status for additional analysis
-    }
+                    if (expensesChartInstance) expensesChartInstance.destroy();
+                    expensesChartInstance = new Chart(document.getElementById('expensesChart').getContext('2d'), {
+                        type: 'pie',
+                        data: {
+                            labels: data.expenses.labels,
+                            datasets: [{
+                                label: 'Done Analytics (%)',
+                                data: data.expenses.data,
+                                backgroundColor: ['#FF6347', '#FFB6C1', '#FF4500', '#32CD32'],
+                                borderColor: '#fff',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true
+                        }
+                    });
+                }
 
-    // Initialize or update charts with the processed data
-    initializeCharts(labels, progressData);
-}
+                // Set default time frame to 'Year'
+                initializeCharts('year');
 
-// Call the function to fetch project data
-fetchProjectData();
-      </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/notifyjs-browser/dist/notify.js"></script>
-    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="js/analyics.js" defer></script>
+                // Add event listeners to buttons
+                document.getElementById('yearBtn').addEventListener('click', () => initializeCharts('year'));
+                document.getElementById('monthBtn').addEventListener('click', () => initializeCharts('month'));
+                document.getElementById('weekBtn').addEventListener('click', () => initializeCharts('week'));
+                docume// Add event listeners to buttons
+                document.getElementById('yearBtn').addEventListener('click', () => {
+                    // Change active button
+                    setActiveButton('yearBtn');
+                    initializeCharts('year');
+                });
+                document.getElementById('monthBtn').addEventListener('click', () => {
+                    // Change active button
+                    setActiveButton('monthBtn');
+                    initializeCharts('month');
+                });
+                document.getElementById('weekBtn').addEventListener('click', () => {
+                    // Change active button
+                    setActiveButton('weekBtn');
+                    initializeCharts('week');
+                });
+                document.getElementById('allBtn').addEventListener('click', () => {
+                    // Change active button
+                    setActiveButton('allBtn');
+                    initializeCharts('all');
+                });
+                
+                // Function to set the active class on the clicked button
+                function setActiveButton(activeId) {
+                    const buttons = document.querySelectorAll('.chart-buttons button');
+                    buttons.forEach(button => {
+                        button.classList.remove('active');  // Remove 'active' from all buttons
+                    });
+                    document.getElementById(activeId).classList.add('active');  // Add 'active' to clicked button
+                }
+                nt.getElementById('allBtn').addEventListener('click', () => initializeCharts('all'));
+        
+        </script>
 </body>
 </html>
