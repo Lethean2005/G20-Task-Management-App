@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Padding Task</title>
+    <title>Project Task Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="css/padding.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/padding.css">
     <link rel="shortcut icon" href="images/logoicon.png" type="image/x-icon">
 </head>
 <body>
@@ -27,129 +27,168 @@
                 <li><a href="project.html"><i class="bi bi-briefcase"></i><span class="menu-text">Projects</span></a></li>
                 <li><a href="calendar.html"><i class="bi bi-calendar-check"></i><span class="menu-text">Calendar</span></a></li>
                 <li><a href="categories.html"><i class="bi bi-tags"></i><span class="menu-text">Categories</span></a></li>
-                <li><a href="#" class="active"><i class="bi bi-hourglass-split"></i><span class="menu-text">Pending Tasks</span></a></li>
+                <li><a href="#"class="active"><i class="bi bi-hourglass-split"></i><span class="menu-text">Pending Tasks</span></a></li>
                 <li><a href="analytics.html"><i class="bi bi-bar-chart-line"></i><span class="menu-text">Analytics</span></a></li>
-                <li><a href="setting.html"><i class="bi bi-gear"></i><span class="menu-text">Setting</span></a></li>
+                <li><a href="setting.html" ><i class="bi bi-gear"></i><span class="menu-text">Setting</span></a></li>
             </ul>
         </div>
 
         <!-- Main Content -->
         <div class="main-content" id="mainContent">
-            <div class="welcome">
-                <div class="heading">
-                    <h1>Welcome To Padding Task</h1>
-                    <p>You've completed 80% of your tasks this week. Keep up the great work and track your progress!</p>
-                    <button>Go Back To The Lessons</button>
-                </div>
-                <div class="images">
-                    <img id="imageSlider" src="images/dashbord-images/book-image.png" alt="Slider Image">
-                </div>
-            </div>
-            <div class="container" id="taskContainer">
-                <!-- Categories will be dynamically loaded here -->
+            <h1>All Projects and Tasks</h1>
+            <div class="container" id="projectsContainer">
+                <!-- All Projects with Tasks and Categories will be loaded here -->
             </div>
         </div>
     </div>
 
-</body>
-<script>
-    // Function to fetch and display categories
-    async function fetchCategories() {
-        const taskContainer = document.getElementById('taskContainer');
-        const apiURL = "https://task-management-6c572-default-rtdb.firebaseio.com/categories.json";
+    <script>
+        // Function to fetch all projects and their tasks with categories
+        async function fetchProjects() {
+            const projectsContainer = document.getElementById('projectsContainer');
+            const apiURL = "https://task-management-6c572-default-rtdb.firebaseio.com/projects.json"; // URL for all projects
 
-        try {
-            const response = await fetch(apiURL);
-            if (!response.ok) throw new Error("Failed to fetch data");
-
-            const data = await response.json();
-            if (data) {
-                taskContainer.innerHTML = ''; // Clear existing content
-                for (const key in data) {
-                    const category = data[key];
-                    const categoryCard = `
-                        <div class="card">
-                            <h3>${category.name}</h3>
-                            <p>${category.description || "No description available"}</p>
-                            <button class="btn-review" onclick="reviewCategory('${category.name}')">Review</button>
-                            <button class="btn-remove" onclick="removeCategory('${key}', this)">Remove</button>
-                        </div>
-                    `;
-                    taskContainer.innerHTML += categoryCard;
-                }
-            } else {
-                taskContainer.innerHTML = '<p>No categories found</p>';
-            }
-        } catch (error) {
-            console.error("Error fetching categories:", error);
-            Swal.fire('Error', 'Failed to load categories', 'error');
-        }
-    }
-
-    // Review category function
-    function reviewCategory(categoryName) {
-        Swal.fire({
-            title: 'Category Review',
-            text: `You are reviewing the category: ${categoryName}`,
-            icon: 'info',
-        });
-    }
-
-    // Remove category function
-    async function removeCategory(categoryId, button) {
-        const apiURL = `https://task-management-6c572-default-rtdb.firebaseio.com/categories/${categoryId}.json`;
-
-        const confirmation = await Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you want to remove this category?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, remove it!',
-        });
-
-        if (confirmation.isConfirmed) {
             try {
-                const response = await fetch(apiURL, { method: 'DELETE' });
-                if (!response.ok) throw new Error("Failed to delete category");
+                const response = await fetch(apiURL);
+                if (!response.ok) throw new Error("Failed to fetch projects");
 
-                // Remove the card from the DOM
-                button.parentElement.remove();
-                Swal.fire('Removed!', 'Category has been removed.', 'success');
+                const data = await response.json();
+                if (data) {
+                    projectsContainer.innerHTML = ''; // Clear any previous content
+
+                    // Loop through all projects
+                    for (const projectId in data) {
+                        const project = data[projectId];
+                        const projectName = project.name;
+                        const projectDescription = project.description || "No description available";
+                        const tasks = project.tasks;
+
+                        const projectCard = `
+                            <div class="project-card">
+                                <h3>${projectName}</h3>
+                                <p>${projectDescription}</p>
+                                <button class="btn-review" onclick="reviewProject('${projectName}')">Review</button>
+                                <div class="tasks">
+                                    <h4>Tasks</h4>
+                                    ${generateTasksHtml(tasks)}
+                                </div>
+                            </div>
+                        `;
+                        projectsContainer.innerHTML += projectCard;
+                    }
+                } else {
+                    projectsContainer.innerHTML = '<p>No projects found</p>';
+                }
             } catch (error) {
-                console.error("Error removing category:", error);
-                Swal.fire('Error', 'Failed to remove category', 'error');
+                console.error("Error fetching projects:", error);
+                Swal.fire('Error', 'Failed to load projects', 'error');
             }
         }
-    }
 
-    // Initialize the script
-    document.addEventListener('DOMContentLoaded', fetchCategories);
+        // Function to generate HTML for tasks in a project
+        function generateTasksHtml(tasks) {
+            if (!tasks) return '<p>No tasks available for this project.</p>';
 
-    const menuToggle = document.getElementById('menuToggle');
-    const sidebar = document.getElementById('sidebar');
-    const mainContent = document.getElementById('mainContent');
+            let tasksHtml = '';
+            for (const taskId in tasks) {
+                const task = tasks[taskId];
+                const taskTitle = task.name;
+                const taskDescription = task.description || "No description available";
+                const taskStatus = task.name|| "Not specified";  
+                const taskCategories = task.categories || []; 
 
-    // Toggle menu collapse/expand
-    menuToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
-        mainContent.classList.toggle('expanded');
-
-        // Adjust mainContent width dynamically
-        if (sidebar.classList.contains('collapsed')) {
-            mainContent.style.width = `calc(100% - 80px)`; 
-        } else {
-            mainContent.style.width = `calc(100% - 250px)`; 
+                tasksHtml += `
+                    <div class="task-card">
+                        <h5>${taskTitle} - ${taskStatus}</h5>
+                        <p>${taskDescription}</p>
+                        <h6>Categories</h6>
+                        <ul>
+                            ${taskCategories.map(cat => `<li>${cat}</li>`).join('')}
+                        </ul>
+                        <button class="btn-review" onclick="reviewTask('${taskTitle}')">Review</button>
+                        <button class="btn-remove" onclick="removeTask('${taskId}', this)">Remove</button>
+                    </div>
+                `;
+            }
+            return tasksHtml;
         }
 
-        // Toggle the icon between list and x (using bi-list and bi-x)
-        const icon = menuToggle.querySelector('i');
-        if (sidebar.classList.contains('collapsed')) {
-            icon.classList.remove('bi-list');
-            icon.classList.add('bi-x');
-        } else {
-            icon.classList.remove('bi-x');
-            icon.classList.add('bi-list');
+        // Review project function
+        function reviewProject(projectName) {
+            Swal.fire({
+                title: 'Project Review',
+                text: `You are reviewing the project: ${projectName}`,
+                icon: 'info',
+            });
         }
-    });
-</script>
+
+        // Review task function
+        function reviewTask(taskTitle) {
+            Swal.fire({
+                title: 'Task Review',
+                text: `You are reviewing the task: ${taskTitle}`,
+                icon: 'info',
+            });
+        }
+
+        // Remove task function
+        async function removeTask(taskId, button) {
+            const apiURL = `https://task-management-6c572-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${taskId}.json`; // URL for task in a project
+
+            const confirmation = await Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to remove this task?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, remove it!',
+            });
+
+            if (confirmation.isConfirmed) {
+                try {
+                    const response = await fetch(apiURL, { method: 'DELETE' });
+                    if (!response.ok) throw new Error("Failed to delete task");
+
+                    // Remove the card from the DOM
+                    button.parentElement.remove();
+                    Swal.fire('Removed!', 'Task has been removed.', 'success');
+                } catch (error) {
+                    console.error("Error removing task:", error);
+                    Swal.fire('Error', 'Failed to remove task', 'error');
+                }
+            }
+        }
+
+        // Initialize the script
+        document.addEventListener('DOMContentLoaded', fetchProjects);
+        
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const menuItems = document.querySelectorAll('.sidebar .menu li a');
+
+        // Toggle menu collapse/expand
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+            
+            // Toggle the icon between list and x (using bi-list and bi-x)
+            const icon = menuToggle.querySelector('i');
+            if (sidebar.classList.contains('collapsed')) {
+                icon.classList.remove('bi-list');
+                icon.classList.add('bi-x');
+            } else {
+                icon.classList.remove('bi-x');
+                icon.classList.add('bi-list');
+            }
+        });
+
+        // Add active class to clicked menu item
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                menuItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+    </script>
+</body>
 </html>

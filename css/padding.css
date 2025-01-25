@@ -270,6 +270,132 @@ body {
     font-weight: bold;
     transition: background 0.2s, transform 0.2s;
 }
+.project-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.project-card h3 {
+    font-size: 24px;
+    color: #34495e;
+}
+
+.project-card p {
+    font-size: 16px;
+    color: #7f8c8d;
+}
+
+.btn-review {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-review:hover {
+    background-color: #2980b9;
+}
+
+.tasks {
+    margin-top: 20px;
+}
+
+.task-card {
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.task-card h5 {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.task-card p {
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.task-card h6 {
+    font-size: 16px;
+    color: #34495e;
+    margin-top: 10px;
+}
+
+.task-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task-card ul li {
+    background-color: #bdc3c7;
+    padding: 5px 10px;
+    margin: 3px 0;
+    border-radius: 3px;
+}
+
+.btn-remove {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-remove:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+    }
+
+    .sidebar .logo-text {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 150px;
+    }
+
+    .main-content {
+        margin-left: 150px;
+    }
+
+    .sidebar .logo-text {
+        font-size: 14px;
+    }
+
+    .project-card h3 {
+        font-size: 20px;
+    }
+
+    .project-card p {
+        font-size: 14px;
+    }
+
+    .task-card h5 {
+        font-size: 16px;
+    }
+}
 /* Responsive Design */
 @media (min-width: 600px) {
     .welcome {
