@@ -14,12 +14,10 @@
 </head>
 <body>
     <div class="container">
-        <!-- Toggle Button -->
         <div class="menu-toggle" id="menuToggle">
-            <i class="bi bi-list"></i> <!-- Updated to use Bootstrap icon (bi-list for burger icon) -->
+            <i class="bi bi-list"></i> 
         </div>
 
-        <!-- Left Side Menu -->
         <div class="sidebar" id="sidebar">
             <div class="logo">
                 <img src="images/logoicon.png" alt="Logo">
@@ -28,37 +26,43 @@
             <ul class="menu">
                 <li>
                     <a href="dashboard.html" >
-                        <i class="bi bi-house-door"></i> <!-- Updated to use Bootstrap icon (bi-house-door for dashboard) -->
+                        <i class="bi bi-house-door"></i> 
                         <span class="menu-text">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="project.html"class="active">
-                        <i class="bi bi-briefcase"></i> <!-- Updated to use Bootstrap icon (bi-briefcase for projects) -->
+                        <i class="bi bi-briefcase"></i> 
                         <span class="menu-text">Projects</span>
                     </a>
                 </li>
                 <li>
+                    <a href="task.html">
+                        <i class="bi bi-check-square"></i> 
+                        <span class="menu-text">Tasks</span>
+                    </a>
+                </li>
+                <li>
                     <a href="calendar.html">
-                        <i class="bi bi-calendar-check"></i> <!-- Updated to use Bootstrap icon (bi-calendar-check for calendar) -->
+                        <i class="bi bi-calendar-check"></i> 
                         <span class="menu-text">Calendar</span>
                     </a>
                 </li>
                 <li>
                     <a href="categories.html">
-                        <i class="bi bi-tags"></i> <!-- Updated to use Bootstrap icon (bi-tags for categories) -->
+                        <i class="bi bi-tags"></i> 
                         <span class="menu-text">Categories</span>
                     </a>
                 </li>
                 <li>
                     <a href="pending_task.html">
-                        <i class="bi bi-hourglass-split"></i> <!-- Updated to use Bootstrap icon (bi-hourglass-split for pending tasks) -->
+                        <i class="bi bi-hourglass-split"></i> 
                         <span class="menu-text">Pending Tasks</span>
                     </a>
                 </li>
                 <li>
                     <a href="analytics.html">
-                        <i class="bi bi-bar-chart-line"></i> <!-- Updated to use Bootstrap icon (bi-bar-chart-line for analytics) -->
+                        <i class="bi bi-bar-chart-line"></i> 
                         <span class="menu-text">Analytics</span>
                     </a>
                 </li>
@@ -71,70 +75,69 @@
             </ul>
         </div>
 
-
         <!-- Main Content -->
         <div class="main-content" id="mainContent">
-
-            <!-- <h1 class="text-center mb-4">Task Manager</h1> -->
 
             <!-- Project Section -->
             <div id="projectSection">
                 <h2>Projects</h2>
                 <p>Enjoy at work and don't forget to be on time</p>
-            
+              
+                <button id="createProjectButton" class="btn btn-primary mb-5">Create Project</button>
+              
                 <!-- Project Creation Form -->
-                <form id="projectForm" class="mb-5">
-                    <div class="mb-3">
-                        <input type="text" id="projectInput" class="form-control" placeholder="Enter a project name" required>
-                    </div>
-                    <div class="mb-3">
-                        <textarea id="projectDescription" class="form-control" placeholder="Write a description about your project..." rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="projectCategory" class="form-label">Category</label>
-                        <select id="projectCategory" class="form-select" required>
-                            <!-- Options will be populated dynamically -->
-                        </select>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="projectStatus" class="form-label">Status</label>
-                        <select id="projectStatus" class="form-select" required>
-                            <option value="Not Started">Not Started</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="projectDueDate" class="form-label">Due Date</label>
-                        <input type="date" id="projectDueDate" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="projectPriority" class="form-label">Priority</label>
-                        <select id="projectPriority" class="form-select" required>
-                            <option value="Low">Low</option>
-                            <option value="Medium">Medium</option>
-                            <option value="High">High</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Create Project</button>
+                <form id="projectForm" class="mb-5" style="display: none;">
+                  <div class="mb-3">
+                    <input type="text" id="projectInput" class="form-control" placeholder="Enter a project name" required>
+                  </div>
+                  <div class="mb-3">
+                    <textarea id="projectDescription" class="form-control" placeholder="Write a description about your project..." rows="3"></textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label for="projectCategory" class="form-label">Category</label>
+                    <select id="projectCategory" class="form-select" required>
+                      <option value="Personal">Personal</option>
+                      <option value="Work">Work</option>
+                      <option value="Study">Study</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="projectStatus" class="form-label">Status</label>
+                    <select id="projectStatus" class="form-select" required>
+                      <option value="Not Started">Not Started</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Completed">Completed</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="projectDueDate" class="form-label">Due Date</label>
+                    <input type="date" id="projectDueDate" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="projectPriority" class="form-label">Priority</label>
+                    <select id="projectPriority" class="form-select" required>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-success">Save Project</button>
+                  <button type="button" id="cancelProjectForm" class="btn btn-secondary">Cancel</button>
                 </form>
-            
+              
                 <!-- Project List -->
                 <div class="row" id="projectList"></div>
             </div>
 
-            <!-- Task Section (Hidden by Default) -->
+            <!-- Task Section -->
             <div id="taskSection" style="display: none;">
                 <h2>Tasks for <span id="selectedProjectName"></span></h2>
 
-                <!-- Search Box -->
-                <div class="search-box">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Search tasks...">
-                </div>
+                <button id="toggleTaskFormButton" class="btn btn-primary mb-3">Add Task</button>
 
                 <!-- Task Form -->
-                <form id="taskForm" class="mb-3">
+                <form id="taskForm" class="mb-3" style="display: none;">
                     <div class="mb-3">
                         <input type="text" id="taskInput" class="form-control" placeholder="Enter a task" required>
                     </div>
@@ -156,8 +159,14 @@
                     <div class="mb-3">
                         <input type="date" id="dueDateInput" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Task</button>
+                    <button type="submit" class="btn btn-primary">Save Task</button>
+                    <button type="button" id="cancelTaskForm" class="btn btn-secondary">Cancel</button>
                 </form>
+
+                <!-- Search Box -->
+                <div class="search-box">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search tasks...">
+                </div>
 
                 <!-- Task List by Category -->
                 <div class="row">
@@ -184,12 +193,10 @@
         </div>
     </div>
 
-    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/notifyjs/dist/notify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment"></script>
     <script type="module" src="js/project.js"></script>
 </body>
-    
 </html>

@@ -4,11 +4,13 @@
     padding: 0;
     box-sizing: border-box;
     box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
     background-color: #f4f4f9;
     color: #333;
+    font-family: 'poppins', sans-serif;
     font-family: 'poppins', sans-serif;
 }
 
@@ -17,11 +19,13 @@ body {
     min-height: 100vh;
     position: relative;
     overflow: hidden;
+    overflow: hidden;
 }
 
 /* Toggle Button */
 .menu-toggle {
     position: fixed;
+    top: 20px;
     top: 20px;
     left: 20px;
     font-size: 24px;
@@ -40,6 +44,7 @@ body {
     position: fixed;
     left: 0;
     top: 0;
+    overflow: hidden; 
     overflow: hidden; 
 }
 
@@ -67,11 +72,13 @@ body {
 
 .sidebar .logo img {
     width: 50px;
+    width: 50px;
     margin-right: 0px;
     transition: width 0.3s ease, height 0.3s ease;
 }
 
 .sidebar .logo-text {
+    font-size: 20px;
     font-size: 20px;
     /* font-weight: bold; */
 }
@@ -100,6 +107,10 @@ body {
     padding-left: 30px;  
     border-radius: 20px;  
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
+    background-color: #1abc9c; 
+    padding-left: 30px;  
+    border-radius: 20px;  
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
 }
 
 .sidebar .menu li a.active {
@@ -109,6 +120,9 @@ body {
 
 .sidebar .menu li a.active:hover {
     background-color: #1abc9c;
+    padding-left: 30px;  
+    border-radius: 20px;  
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
     padding-left: 30px;  
     border-radius: 20px;  
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
