@@ -385,3 +385,164 @@ textarea.form-control {
     resize: vertical;
     min-height: 100px;
 }
+
+
+/* Mobile Devices (up to 480px) */
+@media (max-width: 480px) {
+
+    /* Hide the logo image and text on mobile */
+    .sidebar .logo img,
+    .sidebar .logo-text {
+        display: none;
+    }
+
+    /* Optional: Adjust the sidebar menu for better mobile experience */
+    .sidebar .menu li a {
+        justify-content: center; /* Center icons in collapsed sidebar */
+        padding: 8px 0; /* Reduce padding */
+    }
+
+    .sidebar .menu-text {
+        display: none; /* Hide menu text on mobile */
+    }
+    
+    /* Main Content */
+    .main-content {
+        margin-left: 80px; /* Adjust margin for collapsed sidebar */
+        padding: 10px; /* Reduce padding */
+    }
+
+    /* Task Cards */
+    .list-group-item {
+        padding: 1rem; /* Reduce padding */
+    }
+
+    .task-actions {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 0.5rem;
+    }
+
+    .task-actions button {
+        width: 100%; /* Full-width buttons */
+    }
+
+    /* Search Box */
+    .search-box {
+        max-width: 100%; /* Full-width search box */
+    }
+
+    /* Project Cards */
+    .card {
+        margin-bottom: 1rem; /* Reduce margin */
+    }
+
+    .card-title {
+        font-size: 1.25rem; /* Smaller font size */
+    }
+
+    .card-text {
+        font-size: 0.875rem; /* Smaller font size */
+    }
+
+    /* Buttons */
+    .btn {
+        width: 100%; /* Full-width buttons */
+        margin-bottom: 0.5rem; /* Add space between buttons */
+    }
+
+    /* Form Controls */
+    .form-control {
+        padding: 0.5rem; /* Reduce padding */
+    }
+}
+
+
+
+/* Tablet Devices (up to 768px) */
+@media (max-width: 768px) {
+    /* Sidebar */
+    .sidebar {
+        width: 80px; /* Collapse sidebar on tablet */
+    }
+
+    .sidebar .logo-text,
+    .sidebar .menu-text {
+        display: none; /* Hide text in collapsed sidebar */
+    }
+
+    .sidebar .menu li a {
+        justify-content: center; /* Center icons in collapsed sidebar */
+        padding: 8px 0; /* Reduce padding */
+    }
+
+    /* Main Content */
+    .main-content {
+        margin-left: 80px; /* Adjust margin for collapsed sidebar */
+        padding: 15px; /* Reduce padding */
+    }
+
+    /* Task Cards */
+    .list-group-item {
+        padding: 1rem; /* Reduce padding */
+    }
+
+    .task-actions {
+        flex-direction: row; /* Keep buttons in a row */
+        gap: 0.5rem;
+    }
+
+    .task-actions button {
+        width: auto; /* Auto-width buttons */
+    }
+
+    /* Search Box */
+    .search-box {
+        max-width: 100%; /* Full-width search box */
+    }
+
+    /* Project Cards */
+    .card {
+        margin-bottom: 1rem; /* Reduce margin */
+    }
+
+    .card-title {
+        font-size: 1.25rem; /* Smaller font size */
+    }
+
+    .card-text {
+        font-size: 0.875rem; /* Smaller font size */
+    }
+
+    /* Buttons */
+    .btn {
+        width: auto;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
+
+
+    .task-actions {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    
+    /* Form Controls */
+    .form-control {
+        padding: 0.5rem; /* Reduce padding */
+    }
+
+    /* Two-column layout for project cards */
+    .project-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem; /* Space between cards */
+    }
+
+    .project-list .col-md-4 {
+        flex: 1 1 calc(50% - 0.5rem); /* Two columns with gap */
+        max-width: calc(50% - 0.5rem); /* Two columns with gap */
+    }
+}
