@@ -385,26 +385,13 @@ body {
 .btn-delete:hover {
     background-color: #d32f2f; 
 }
-/* Media Queries for responsiveness */
-@media (max-width: 768px) {
-    .project-card {
-        flex: 1 1 calc(50% - 30px); 
-        padding: 20px; 
-    }
-}
 
-@media (max-width: 480px) {
-    .project-card {
-        flex: 1 1 100%; /* Use flex for full width */
-        padding: 15px;
-    }
-}
 
 /* Fullscreen container */
 .container-fluid {
     max-width: 100%;
     padding: 20px;
-    height: 100vh;
+    height: 50vh;
     overflow: auto;
 }
 
@@ -485,25 +472,5 @@ body {
     font-weight: bold;
     font-size: 16px;
 }
-
-/* Table responsiveness */
-@media (max-width: 768px) {
-    .table {
-        font-size: 12px;
-    }
-
-    .action-buttons button {
-        font-size: 12px;
-        width: 80px;
-    }
-}
-
-
-
-
-
-
-
-
 
 
