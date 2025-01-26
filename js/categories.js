@@ -8,7 +8,6 @@ menuToggle.addEventListener('click', () => {
     sidebar.classList.toggle('collapsed');
     mainContent.classList.toggle('expanded');
     
-    // Toggle the icon between list and x (using bi-list and bi-x)
     const icon = menuToggle.querySelector('i');
     if (sidebar.classList.contains('collapsed')) {
         icon.classList.remove('bi-list');
@@ -26,6 +25,7 @@ menuItems.forEach(item => {
         item.classList.add('active');
     });
 });
+
 // Add category functionality
 document.getElementById('add-category-btn').addEventListener('click', function () {
     const newCategoryInput = document.getElementById('new-category');
@@ -107,117 +107,6 @@ document.addEventListener('click', function (event) {
                 });
             }
         });
-    }
-});
-// Add task functionality
-document.getElementById('add-task-btn').addEventListener('click', function () {
-    const newTaskInput = document.getElementById('new-task');
-    const newTask = newTaskInput.value.trim();
-
-    if (newTask) {
-        const tasksList = document.getElementById('tasks-list');
-        const newTaskItem = document.createElement('li');
-        newTaskItem.innerHTML = `
-            <span>${newTask}</span>
-            <div class="task-actions">
-                <button class="complete-task-btn"><i class="bi bi-check-circle"></i></button>
-                <button class="edit-task-btn"><i class="bi bi-pencil"></i></button>
-                <button class="delete-task-btn"><i class="bi bi-trash"></i></button>
-            </div>
-        `;
-        tasksList.appendChild(newTaskItem);
-        newTaskInput.value = '';
-        Swal.fire({
-            icon: 'success',
-            title: 'Task Added',
-            text: `"${newTask}" has been added to your tasks.`,
-            confirmButtonText: 'OK'
-        });
-    } else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Please enter a task name.',
-            confirmButtonText: 'OK'
-        });
-    }
-});
-
-// Edit task functionality
-document.addEventListener('click', function (event) {
-    if (event.target.classList.contains('edit-task-btn')) {
-        const taskItem = event.target.closest('li');
-        const taskText = taskItem.querySelector('span').textContent;
-        Swal.fire({
-            title: 'Edit Task',
-            input: 'text',
-            inputValue: taskText,
-            showCancelButton: true,
-            confirmButtonText: 'Save',
-            cancelButtonText: 'Cancel',
-        }).then((result) => {
-            if (result.isConfirmed && result.value.trim()) {
-                taskItem.querySelector('span').textContent = result.value.trim();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Task Updated',
-                    text: 'Your task has been updated.',
-                    confirmButtonText: 'OK'
-                });
-            }
-        });
-    }
-});
-
-// Delete task functionality
-document.addEventListener('click', function (event) {
-    if (event.target.classList.contains('delete-task-btn')) {
-        const taskItem = event.target.closest('li');
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'You will not be able to recover this task!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, keep it'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                taskItem.remove();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Task Deleted',
-                    text: 'Your task has been deleted.',
-                    confirmButtonText: 'OK'
-                });
-            }
-        });
-    }
-});
-
-// Mark task as complete or incomplete functionality
-document.addEventListener('click', function (event) {
-    if (event.target.classList.contains('complete-task-btn')) {
-        const taskItem = event.target.closest('li');
-        const taskText = taskItem.querySelector('span');
-        if (taskItem.classList.contains('completed')) {
-            taskItem.classList.remove('completed');
-            taskText.style.textDecoration = 'none';
-            Swal.fire({
-                icon: 'success',
-                title: 'Task Marked as Incomplete',
-                text: 'Your task has been marked as incomplete.',
-                confirmButtonText: 'OK'
-            });
-        } else {
-            taskItem.classList.add('completed');
-            taskText.style.textDecoration = 'line-through';
-            Swal.fire({
-                icon: 'success',
-                title: 'Task Marked as Complete',
-                text: 'Your task has been marked as complete.',
-                confirmButtonText: 'OK'
-            });
-        }
     }
 });
 
@@ -389,7 +278,3 @@ function deleteCategory(key) {
         }
     });
 }
-
-
-
-

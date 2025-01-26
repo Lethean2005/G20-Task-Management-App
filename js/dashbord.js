@@ -34,31 +34,7 @@ menuItems.forEach(item => {
     });
 });
 
-
-// chang images Auto
-// Array of image sources
-const images = [
-    "images/dashbord-images/book-image.png",
-    "images/dashbord-images/book-image2.png",
-    "images/dashbord-images/book-image3.png", 
-];
-
-// Set the initial index to 0
-let currentIndex = 0;
-
-// Function to change the image
-function changeImage() {
-    // Get the image element
-    const imageElement = document.getElementById("imageSlider");
-    imageElement.src = images[currentIndex];
-    currentIndex = (currentIndex + 1) % images.length;
-}
-setInterval(changeImage, 3000);
-
-
-
 // Auto change images
-// Auto Image Slider Script
 document.addEventListener("DOMContentLoaded", () => {
     const images = [
         "images/dashbord-images/book-image.png",
@@ -69,62 +45,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const imageElement = document.getElementById("imageSlider");
 
-    // Set a fixed size for the image using JavaScript
     imageElement.style.width = "200px";
     imageElement.style.height = "auto";
     imageElement.style.objectFit = "cover";
 
-    // Preload the images
     images.forEach(src => {
         const img = new Image();
         img.src = src;
     });
 
-    // Change the image every 3 seconds
     setInterval(() => {
         currentIndex = (currentIndex + 1) % images.length;
         imageElement.src = images[currentIndex];
     }, 3000);
 });
 
-// project status 
-    // Filter Table by Status
-    document.getElementById('filterStatus').addEventListener('change', function () {
-        const filterValue = this.value.toLowerCase();
-        const rows = document.querySelectorAll('.table-data tbody tr');
+// Project status filter
+document.getElementById('filterStatus').addEventListener('change', function () {
+    const filterValue = this.value.toLowerCase();
+    const rows = document.querySelectorAll('.table-data tbody tr');
 
-        rows.forEach(row => {
-            const status = row.cells[2].textContent.trim().toLowerCase(); 
-            if (filterValue === '' || status === filterValue) {
-                row.style.display = ''; 
-            } else {
-                row.style.display = 'none'; 
-            }
-        });
+    rows.forEach(row => {
+        const status = row.cells[2].textContent.trim().toLowerCase(); 
+        if (filterValue === '' || status === filterValue) {
+            row.style.display = ''; 
+        } else {
+            row.style.display = 'none'; 
+        }
     });
+});
 
-    // Remove Row Functionality
-    function removeRow(button) {
-        const row = button.closest('tr');
-        row.remove();
-    }
+// Review Row Functionality with SweetAlert
+function reviewRow(button) {
+    const row = button.closest('tr');
+    const taskName = row.cells[1].textContent;
 
-    // Review Row Functionality
-    function reviewRow(button) {
-        const row = button.closest('tr');
-        alert(`Reviewing Task: ${row.cells[1].textContent}`);
-    }
+    // Trigger SweetAlert before redirect
+    Swal.fire({
+        title: 'Are you sure?',
+        text: `You are about to review the task: ${taskName}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Review it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirect to project.html with the task name or ID
+            window.location.href = `project.html?task=${encodeURIComponent(taskName)}`;
+        }
+    });
+}
 
-  
-// store project Api in firebase 
+// Store project API in Firebase
 document.addEventListener('DOMContentLoaded', () => {
-    // Firebase Database URL (use your own database URL)
     const databaseUrl = 'https://task-management-6c572-default-rtdb.firebaseio.com/projects.json';
 
-    // Fetch data from Firebase
     fetch(databaseUrl)
         .then(response => {
-            // Check if the response is okay (status code 200)
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.statusText}`);
             }
@@ -132,23 +109,18 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             const projectsContainer = document.getElementById('projectsContainer');
-
-            // Check if the data is empty or not in expected format
             if (!data || Object.keys(data).length === 0) {
                 console.warn('No projects found in the Firebase database.');
-                return; 
+                return;
             }
 
-            // Loop through the data and create a project card for each project
             for (let projectId in data) {
                 if (data.hasOwnProperty(projectId)) {
                     const project = data[projectId];
 
-                    // Create a new project card
                     const projectCard = document.createElement('div');
                     projectCard.classList.add('project-card');
 
-                    // Add project details to the card, ensuring there are fallbacks for missing data
                     projectCard.innerHTML = `
                         <div class="project-title">${project.name || 'NO title'}</div>
                         <p class="project-info">${project.description || 'No description provided.'}</p>
@@ -158,11 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="project-info">Priority: ${project.priority || 'TBD'}</p>
                         <div class="project-actions">
                             <button class="btn btn-review" onclick="reviewTask('${projectId}')">Review Task</button>
-                            <button class="btn btn-delete" onclick="deleteTask('${projectId}', this)">Delete Task</button>
+                            <button class="btn btn-delete" onclick="confirmDelete('${projectId}', this)">Delete Task</button>
                         </div>
                     `;
 
-                    // Append the new card to the projects container
                     projectsContainer.appendChild(projectCard);
                 }
             }
@@ -172,12 +143,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 });
 
-// Function to review the task
+// Function to review the task with SweetAlert
 function reviewTask(projectId) {
-    console.log("Reviewing Task with projectId:", projectId);
-    // Implement your review task logic here
-    // For example, you could show a modal with more details or navigate to a different section
-    alert(`Reviewing Task with ID: ${projectId}`);
+    Swal.fire({
+        title: 'Are you sure?',
+        text: `You are about to review the task with ID: ${projectId}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Review it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirect to project.html with the project ID
+            window.location.href = `project.html?projectId=${projectId}`;
+        }
+    });
+}
+
+// Function to show SweetAlert before deleting task
+function confirmDelete(projectId, button) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this task!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Proceed with task deletion
+            deleteTask(projectId, button);
+        }
+    });
 }
 
 // Function to delete the task from Firebase and DOM
@@ -185,17 +182,15 @@ function deleteTask(projectId, button) {
     const projectCard = button.closest('.project-card');
     
     if (projectCard) {
-        // Firebase Database URL (use your own database URL)
         const databaseUrl = `https://task-management-6c572-default-rtdb.firebaseio.com/projects/${projectId}.json`;
 
-        // Send DELETE request to Firebase to delete the project
         fetch(databaseUrl, {
-            method: 'DELETE', 
+            method: 'DELETE',
         })
         .then(response => {
             if (response.ok) {
                 console.log(`Project ${projectId} deleted from Firebase.`);
-                projectCard.remove(); 
+                projectCard.remove();
             } else {
                 console.error('Failed to delete the project from Firebase.');
             }
@@ -205,7 +200,3 @@ function deleteTask(projectId, button) {
         });
     }
 }
-
-
-
-
