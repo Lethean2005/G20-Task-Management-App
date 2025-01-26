@@ -118,6 +118,9 @@ body {
     margin-right: 10px;
 }
 
+
+
+
 /* Main Content Styles */
 .main-content {
     margin-left: 250px;
@@ -131,151 +134,131 @@ body {
     width: calc(100% - 80px);
 }
 
-
-/* Welcome Section */
-.welcome {
-    background-image: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%);
-    display: flex;
-    flex-direction: column; /* Stack content vertically on small screens */
-    align-items: center; /* Center-align content */
-    border: none;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    border-radius: 20px;
-    padding: 20px;
-    width: 100%;
-    margin-bottom: 20px;
-    text-align: center; /* Center-align text */
-}
-
-.welcome h1 {
-    margin-bottom: 20px;
-    font-size: 24px; /* Adjust font size for smaller screens */
-}
-
-.welcome p {
-    line-height: 1.5;
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-.welcome img {
-    width: 150px; /* Smaller image for mobile */
-    height: auto;
-    margin-left: 0; /* Remove left margin */
-    margin-top: 20px; /* Add space between text and image */
-}
-
-.welcome button {
-    width: 100%; /* Full-width button for better usability */
-    margin-top: 16px;
-    padding: 12px 20px;
-    border-radius: 20px;
-    border: none;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    background-color: transparent;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.welcome button:hover {
-    background-color: #1abc9c;
-    color: white;
-    transform: translateY(-5px);
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 15px;
-}
-
-/* Container for Cards */
-.container {
-    display: flex;
-    flex-wrap: wrap;
+/* Projects and Tasks Container */
+#projectsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     padding: 20px;
-    width: 100%; 
-    box-sizing: border-box; 
 }
 
-/* Card Styles */
-.card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    height: auto;
-    background: linear-gradient(135deg, #007b7f, #72d8e8);
-    border: 1px solid #ddd;
-    border-radius: 8px;
+/* Project Card Styles */
+.project-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    width: 100%; /* Full width by default */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.card h3 {
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.project-card h3 {
     margin: 0 0 10px;
-    color: #fff;
-    font-size: 20px; /* Adjust font size for smaller screens */
+    font-size: 20px;
+    color: #2c3e50;
 }
 
-.card p {
-    margin: 5px 0;
-    color: #f1f1f1;
-    font-size: 14px; 
+.project-card p {
+    margin: 0 0 15px;
+    font-size: 14px;
+    color: #666;
 }
 
-.card button {
-    margin-top: 10px;
-    padding: 8px 16px;
+.project-card .btn-review {
+    background-color: #1abc9c;
+    color: white;
     border: none;
-    border-radius: 5px;
+    padding: 8px 16px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
-    font-weight: bold;
-    color: #fff;
     transition: background 0.2s, transform 0.2s;
 }
 
-.card .btn-review {
-    background-color: #4caf50; 
-    margin-right: 10px;
-}
-
-.card .btn-review:hover {
-    background-color: #45a049;
+.project-card .btn-review:hover {
+    background-color: #16a085;
     transform: scale(1.05);
 }
 
-.card .btn-delete {
-    background-color: #f44336; 
+/* Task Card Styles */
+.task-card {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
 }
 
-.card .btn-delete:hover {
-    background-color: #e53935;
-    transform: scale(1.05);
+.task-card h5 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: #2c3e50;
 }
 
-.card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-.btn-remove{
-    background-color: red;
-    color: black;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
+.task-card p {
+    margin: 0 0 10px;
     font-size: 14px;
-    font-weight: bold;
+    color: #666;
+}
+
+.task-card h6 {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #2c3e50;
+}
+
+.task-card ul {
+    margin: 0 0 10px;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.task-card ul li {
+    font-size: 12px;
+    color: #666;
+}
+
+.task-card .btn-review {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: 8px;
     transition: background 0.2s, transform 0.2s;
+}
+
+.task-card .btn-review:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+.task-card .btn-remove {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.task-card .btn-remove:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
 }
 
 
 /* Mobile Devices (up to 480px) */
 @media (max-width: 480px) {
-    /* Sidebar */
     .sidebar {
         width: 80px;
     }
@@ -291,67 +274,63 @@ body {
         padding: 8px 0;
     }
 
-    /* Main Content */
     .main-content {
         margin-left: 80px;
         padding: 15px;
     }
 
-    /* Welcome Section */
-    .welcome {
-        flex-direction: column;
-        text-align: center;
-        padding: 20px;
-    }
-
-    .welcome h1 {
-        font-size: 24px;
-    }
-
-    .welcome p {
-        font-size: 14px;
-    }
-
-    .welcome img {
-        width: 120px;
-        margin-left: 0;
-        margin-top: 20px;
-    }
-
-    .welcome button {
-        width: 100%;
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    /* Container for Cards */
-    .container {
-        padding: 10px;
-    }
-
-    /* Card Styles */
-    .card {
-        width: 100%;
+    #projectsContainer {
+        grid-template-columns: 1fr;
+        gap: 15px;
         padding: 15px;
     }
 
-    .card h3 {
+    .project-card {
+        padding: 15px;
+    }
+
+    .project-card h3 {
         font-size: 18px;
     }
 
-    .card p {
+    .project-card p {
         font-size: 12px;
     }
 
-    .card button {
-        font-size: 12px;
+    .project-card .btn-review {
         padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .task-card {
+        padding: 10px;
+    }
+
+    .task-card h5 {
+        font-size: 14px;
+    }
+
+    .task-card p {
+        font-size: 12px;
+    }
+
+    .task-card h6 {
+        font-size: 12px;
+    }
+
+    .task-card ul li {
+        font-size: 10px;
+    }
+
+    .task-card .btn-review,
+    .task-card .btn-remove {
+        padding: 4px 8px;
+        font-size: 10px;
     }
 }
 
-/* Tablet Devices (up to 768px) */
+/* Tablet Devices (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
-    /* Sidebar */
     .sidebar {
         width: 200px;
     }
@@ -364,60 +343,58 @@ body {
         font-size: 18px;
     }
 
-    /* Main Content */
     .main-content {
         margin-left: 200px;
         padding: 20px;
     }
 
-    /* Welcome Section */
-    .welcome {
-        flex-direction: row;
-        text-align: left;
+    #projectsContainer {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
         padding: 20px;
     }
 
-    .welcome h1 {
-        font-size: 28px;
-    }
-
-    .welcome p {
-        font-size: 16px;
-    }
-
-    .welcome img {
-        width: 150px;
-        margin-left: 20px;
-        margin-top: 0;
-    }
-
-    .welcome button {
-        width: auto;
-        padding: 12px 20px;
-        font-size: 16px;
-    }
-
-    /* Container for Cards */
-    .container {
+    .project-card {
         padding: 20px;
     }
 
-    /* Card Styles */
-    .card {
-        width: calc(50% - 10px);
-        padding: 20px;
-    }
-
-    .card h3 {
+    .project-card h3 {
         font-size: 20px;
     }
 
-    .card p {
+    .project-card p {
         font-size: 14px;
     }
 
-    .card button {
-        font-size: 14px;
+    .project-card .btn-review {
         padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .task-card {
+        padding: 15px;
+    }
+
+    .task-card h5 {
+        font-size: 16px;
+    }
+
+    .task-card p {
+        font-size: 14px;
+    }
+
+    .task-card h6 {
+        font-size: 14px;
+    }
+
+    .task-card ul li {
+        font-size: 12px;
+    }
+
+    .task-card .btn-review,
+    .task-card .btn-remove {
+        padding: 6px 12px;
+        font-size: 12px;
     }
 }
+
