@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Task Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/pending.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/padding.css">
     <link rel="shortcut icon" href="images/logoicon.png" type="image/x-icon">
@@ -27,9 +28,9 @@
                 <li><a href="project.html"><i class="bi bi-briefcase"></i><span class="menu-text">Projects</span></a></li>
                 <li><a href="calendar.html"><i class="bi bi-calendar-check"></i><span class="menu-text">Calendar</span></a></li>
                 <li><a href="categories.html"><i class="bi bi-tags"></i><span class="menu-text">Categories</span></a></li>
-                <li><a href="#"class="active"><i class="bi bi-hourglass-split"></i><span class="menu-text">Pending Tasks</span></a></li>
+                <li><a href="#" class="active"><i class="bi bi-hourglass-split"></i><span class="menu-text">Pending Tasks</span></a></li>
                 <li><a href="analytics.html"><i class="bi bi-bar-chart-line"></i><span class="menu-text">Analytics</span></a></li>
-                <li><a href="setting.html" ><i class="bi bi-gear"></i><span class="menu-text">Setting</span></a></li>
+                <li><a href="setting.html"><i class="bi bi-gear"></i><span class="menu-text">Setting</span></a></li>
             </ul>
         </div>
 
@@ -70,7 +71,7 @@
                                 <button class="btn-review" onclick="reviewProject('${projectName}')">Review</button>
                                 <div class="tasks">
                                     <h4>Tasks</h4>
-                                    ${generateTasksHtml(tasks)}
+                                    ${generateTasksHtml(tasks, projectId)}
                                 </div>
                             </div>
                         `;
@@ -86,7 +87,7 @@
         }
 
         // Function to generate HTML for tasks in a project
-        function generateTasksHtml(tasks) {
+        function generateTasksHtml(tasks, projectId) {
             if (!tasks) return '<p>No tasks available for this project.</p>';
 
             let tasksHtml = '';
@@ -94,8 +95,8 @@
                 const task = tasks[taskId];
                 const taskTitle = task.name;
                 const taskDescription = task.description || "No description available";
-                const taskStatus = task.name|| "Not specified";  
-                const taskCategories = task.categories || []; 
+                const taskStatus = task.name || "Not specified";
+                const taskCategories = task.categories || [];
 
                 tasksHtml += `
                     <div class="task-card">
@@ -106,20 +107,17 @@
                             ${taskCategories.map(cat => `<li>${cat}</li>`).join('')}
                         </ul>
                         <button class="btn-review" onclick="reviewTask('${taskTitle}')">Review</button>
-                        <button class="btn-remove" onclick="removeTask('${taskId}', this)">Remove</button>
+                        <button class="btn-remove" onclick="removeTask('${taskId}', '${projectId}', this)">Remove</button>
                     </div>
                 `;
             }
             return tasksHtml;
         }
 
-        // Review project function
+        // Review project function with navigation to project.html
         function reviewProject(projectName) {
-            Swal.fire({
-                title: 'Project Review',
-                text: `You are reviewing the project: ${projectName}`,
-                icon: 'info',
-            });
+            const projectUrl = `project.html?name=${encodeURIComponent(projectName)}`;
+            window.location.href = projectUrl;
         }
 
         // Review task function
@@ -132,8 +130,8 @@
         }
 
         // Remove task function
-        async function removeTask(taskId, button) {
-            const apiURL = `https://task-management-6c572-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${taskId}.json`; // URL for task in a project
+        async function removeTask(taskId, projectId, button) {
+            const apiURL = `https://task-management-6c572-default-rtdb.firebaseio.com/projects/${projectId}/tasks/${taskId}.json`;
 
             const confirmation = await Swal.fire({
                 title: 'Are you sure?',
@@ -160,7 +158,7 @@
 
         // Initialize the script
         document.addEventListener('DOMContentLoaded', fetchProjects);
-        
+
         const menuToggle = document.getElementById('menuToggle');
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.getElementById('mainContent');
@@ -170,7 +168,7 @@
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('collapsed');
             mainContent.classList.toggle('expanded');
-            
+
             // Toggle the icon between list and x (using bi-list and bi-x)
             const icon = menuToggle.querySelector('i');
             if (sidebar.classList.contains('collapsed')) {
@@ -189,7 +187,6 @@
                 item.classList.add('active');
             });
         });
-        
     </script>
 </body>
 </html>

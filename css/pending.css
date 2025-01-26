@@ -117,6 +117,7 @@ body {
     font-size: 20px;
     margin-right: 10px;
 }
+
 /* Main Content Styles */
 .main-content {
     margin-left: 250px;
@@ -270,156 +271,153 @@ body {
     font-weight: bold;
     transition: background 0.2s, transform 0.2s;
 }
-.project-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
+
+
+/* Mobile Devices (up to 480px) */
+@media (max-width: 480px) {
+    /* Sidebar */
+    .sidebar {
+        width: 80px;
+    }
+
+    .sidebar .logo img,
+    .sidebar .logo-text,
+    .sidebar .menu-text {
+        display: none;
+    }
+
+    .sidebar .menu li a {
+        justify-content: center;
+        padding: 8px 0;
+    }
+
+    /* Main Content */
+    .main-content {
+        margin-left: 80px;
+        padding: 15px;
+    }
+
+    /* Welcome Section */
+    .welcome {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .welcome h1 {
+        font-size: 24px;
+    }
+
+    .welcome p {
+        font-size: 14px;
+    }
+
+    .welcome img {
+        width: 120px;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .welcome button {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    /* Container for Cards */
+    .container {
+        padding: 10px;
+    }
+
+    /* Card Styles */
+    .card {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .card h3 {
+        font-size: 18px;
+    }
+
+    .card p {
+        font-size: 12px;
+    }
+
+    .card button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
 }
 
-.project-card h3 {
-    font-size: 24px;
-    color: #34495e;
-}
-
-.project-card p {
-    font-size: 16px;
-    color: #7f8c8d;
-}
-
-.btn-review {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    margin-top: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.btn-review:hover {
-    background-color: #2980b9;
-}
-
-.tasks {
-    margin-top: 20px;
-}
-
-.task-card {
-    background-color: #ecf0f1;
-    padding: 15px;
-    border-radius: 5px;
-    margin-top: 15px;
-}
-
-.task-card h5 {
-    font-size: 18px;
-    color: #2c3e50;
-    margin-bottom: 10px;
-}
-
-.task-card p {
-    font-size: 14px;
-    color: #7f8c8d;
-}
-
-.task-card h6 {
-    font-size: 16px;
-    color: #34495e;
-    margin-top: 10px;
-}
-
-.task-card ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.task-card ul li {
-    background-color: #bdc3c7;
-    padding: 5px 10px;
-    margin: 3px 0;
-    border-radius: 3px;
-}
-
-.btn-remove {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    margin-top: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.btn-remove:hover {
-    background-color: #c0392b;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
+/* Tablet Devices (up to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    /* Sidebar */
     .sidebar {
         width: 200px;
     }
 
+    .sidebar .logo img {
+        width: 40px;
+    }
+
+    .sidebar .logo-text {
+        font-size: 18px;
+    }
+
+    /* Main Content */
     .main-content {
         margin-left: 200px;
+        padding: 20px;
     }
 
-    .sidebar .logo-text {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .sidebar {
-        width: 150px;
-    }
-
-    .main-content {
-        margin-left: 150px;
-    }
-
-    .sidebar .logo-text {
-        font-size: 14px;
-    }
-
-    .project-card h3 {
-        font-size: 20px;
-    }
-
-    .project-card p {
-        font-size: 14px;
-    }
-
-    .task-card h5 {
-        font-size: 16px;
-    }
-}
-
-/* Responsive Design */
-@media (min-width: 600px) {
+    /* Welcome Section */
     .welcome {
-        flex-direction: row; 
-        text-align: left; 
+        flex-direction: row;
+        text-align: left;
+        padding: 20px;
+    }
+
+    .welcome h1 {
+        font-size: 28px;
+    }
+
+    .welcome p {
+        font-size: 16px;
     }
 
     .welcome img {
-        margin-left: 20px; 
-        margin-top: 0; 
+        width: 150px;
+        margin-left: 20px;
+        margin-top: 0;
     }
 
     .welcome button {
-        width: 50%; 
+        width: auto;
+        padding: 12px 20px;
+        font-size: 16px;
     }
 
-    .card {
-        flex: 1 1 calc(50% - 20px); 
+    /* Container for Cards */
+    .container {
+        padding: 20px;
     }
-}
 
-@media (min-width: 900px) {
+    /* Card Styles */
     .card {
-        flex: 1 1 calc(33.33% - 20px); 
+        width: calc(50% - 10px);
+        padding: 20px;
+    }
+
+    .card h3 {
+        font-size: 20px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+
+    .card button {
+        font-size: 14px;
+        padding: 8px 16px;
     }
 }
