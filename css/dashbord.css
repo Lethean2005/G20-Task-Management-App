@@ -60,20 +60,21 @@ body {
 .sidebar .logo {
     display: flex;
     align-items: center;
-    padding: 20px 10px;
+    padding: 20px;
     border-bottom: 1px solid #34495e;
     justify-content: center;
 }
 
 .sidebar .logo img {
-    width: 50px;
-    margin-right: 0px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
     transition: width 0.3s ease, height 0.3s ease;
 }
 
 .sidebar .logo-text {
     font-size: 20px;
-    /* font-weight: bold; */
+    font-weight: bold;
 }
 
 .sidebar .menu {
@@ -88,7 +89,7 @@ body {
 .sidebar .menu li a {
     display: flex;
     align-items: center;
-    padding: 8px 20px;
+    padding: 12px 20px;
     color: #fff;
     text-decoration: none;
     border-radius: 8px;
@@ -99,7 +100,7 @@ body {
     background-color: #1abc9c; 
     padding-left: 30px;  
     border-radius: 20px;  
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .sidebar .menu li a.active {
@@ -109,8 +110,8 @@ body {
 
 .sidebar .menu li a.active:hover {
     background-color: #1abc9c;
-    padding-left: 30px;  
-    border-radius: 20px;  
+    padding-left: 30px; 
+    border-radius: 20px; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  
 }
 
@@ -118,7 +119,6 @@ body {
     font-size: 20px;
     margin-right: 10px;
 }
-
 
 /* Main Content Styles */
 .main-content {
